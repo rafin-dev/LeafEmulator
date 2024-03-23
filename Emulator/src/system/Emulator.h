@@ -14,7 +14,7 @@ namespace GameBoyEmulator {
 
 	private:
 
-		uint8_t Memory[65536];
+		uint8_t GBMemory[0xFFFF];
 
 		CPU processor;
 	};

@@ -3,7 +3,9 @@
 namespace GameBoyEmulator {
 
 	Emulator::Emulator(std::string& ROMpath)
+		: processor(GBMemory)
 	{
+		memset(GBMemory, 0, sizeof(GBMemory));
 	}
 
 }
