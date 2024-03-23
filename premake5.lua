@@ -1,4 +1,4 @@
-workspace "Prototype-Emulator"
+workspace "GameBoy-Emulator"
 
     architecture "x64"
     configurations { "Debug", "Release"}
@@ -13,7 +13,12 @@ project "Emulator"
     targetdir ("bin/%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}/%{prj.name}")
     objdir ("bin-int/%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}/%{prj.name}")
 
-    includedirs {"vendor/SFML/include"}
+    includedirs 
+    {
+        "vendor/SFML/include",
+        "vendor/SPDLOG/include",
+        "Emulator/src"
+    }
 
     files
     {

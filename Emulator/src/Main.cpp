@@ -1,9 +1,11 @@
-#include "system/GameBoy.h"
+#include "GameBoy.h"
+#include "Log.h"
 
 int main()
 {
-	GameBoyEmulator::GameBoy* gb = new GameBoyEmulator::GameBoy();
+	Log::Init();
 
+	GameBoyEmulator::GameBoy* gb = new GameBoyEmulator::GameBoy();
 	gb->Run("Test");
 
 	delete gb;
