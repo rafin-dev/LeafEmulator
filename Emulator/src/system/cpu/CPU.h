@@ -46,19 +46,39 @@ namespace GameBoyEmulator {
 			SetFlag(7, n);
 		}
 
+		inline bool GetZeroFlag()
+		{
+			return GetFlag(7);
+		}
+
 		inline void SetSubtractionFlag(bool n) 
 		{ 
 			SetFlag(6, n);
+		}
+
+		inline bool GetSubtractionFlag()
+		{
+			return GetFlag(6);
 		}
 		
 		inline void SetHalfCarryFlag(bool n)
 		{ 
 			SetFlag(5, n);
 		}
+
+		inline bool GetHalfCarryFlag()
+		{
+			return GetFlag(5);
+		}
 		
 		inline void SetCarryFlag(bool n) 
 		{ 
 			SetFlag(4, n);
+		}
+
+		inline bool GetCarryFlag()
+		{
+			return GetFlag(4);
 		}
 
 	private:
@@ -81,6 +101,11 @@ namespace GameBoyEmulator {
 				F & (~(1 << flagIndex));
 			}
 		}
+
+		bool GetFlag(int flagIndex)
+		{
+			return F & (1 << flagIndex);
+		}
 	};
 
 	// CPU class
@@ -95,9 +120,10 @@ namespace GameBoyEmulator {
 	private:
 
 		// Helper functions for the ADD instructions
-		void SetAddInstructionsFlags(int ADDresult);
+		void SetAddInstructionsFlags16bit(int ADDresult);
+		void SetAddInstructionsFlags8bit(int ADDresult);
 		void ADDtoHL(uint16_t n);
-		void AddtoA(uint8_t n);
+		void ADDtoA(uint8_t n);
 
 
 		// Pointer to the memory (other objects such as the PPU will utilize the same memory)
@@ -156,12 +182,31 @@ namespace GameBoyEmulator {
 		int ADD_HL_DE();
 		int ADD_HL_HL();
 		int ADD_HL_SP();
+		int ADD_SP_I8();
 
 		// 8 bit
 		int ADD_A_B();
 		int ADD_A_C();
 		int ADD_A_D();
 		int ADD_A_E();
+		int ADD_A_H();
+		int ADD_A_L();
+		// MHL stands for memory at HL, this instruction adds the value of HL to A
+		int ADD_A_MHL();
+		int ADD_A_A();
+		int ADD_A_U8();
+
+		// ADC instructions(all 8 bit), the diference to ADD is that it also adds the carry flag to the operation
+		int ADC_A_B();
+		int ADC_A_C();
+		int ADC_A_D();
+		int ADC_A_E();
+		int ADC_A_H();
+		int ADC_A_L();
+		// MHL stands for memory at HL, this instruction adds the value of HL plus the carry flag to A
+		int ADC_A_MHL();
+		int ADC_A_A();
+		int ADC_A_U8();
 
 		CPU()
 		: Memory(nullptr)

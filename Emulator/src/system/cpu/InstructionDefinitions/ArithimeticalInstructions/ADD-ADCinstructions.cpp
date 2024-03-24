@@ -4,24 +4,30 @@ namespace GameBoyEmulator {
 
 	// Helper functions for the ADD instructions
 
-	void CPU::SetAddInstructionsFlags(int ADDresult)
+	void CPU::SetAddInstructionsFlags16bit(int ADDresult)
 	{
 		Registers.SetSubtractionFlag(false);
 		Registers.SetHalfCarryFlag(ADDresult > 0x00FF);
 		Registers.SetCarryFlag(ADDresult > 0xFFFF);
 	}
 
+	void CPU::SetAddInstructionsFlags8bit(int ADDresult)
+	{
+		SetAddInstructionsFlags16bit(ADDresult);
+		Registers.SetZeroFlag(ADDresult == 0);
+	}
+
 	void CPU::ADDtoHL(uint16_t n)
 	{
 		int Result = Registers.GetHL() + n;
-		SetAddInstructionsFlags(Result);
+		SetAddInstructionsFlags16bit(Result);
 		Registers.SetHL(Result);
 	}
 
-	void CPU::AddtoA(uint8_t n)
+	void CPU::ADDtoA(uint8_t n)
 	{
 		int Result = Registers.A + n;
-		SetAddInstructionsFlags(Result);
+		SetAddInstructionsFlags8bit(Result);
 		Registers.A = Result;
 	}
 
@@ -56,33 +62,145 @@ namespace GameBoyEmulator {
 		return 1;
 	}
 
+	int CPU::ADD_SP_I8()
+	{
+		int8_t n = Memory[Registers.PC + 1];
+		int Result = Registers.SP + n;
+
+		Registers.SetZeroFlag(false);
+		SetAddInstructionsFlags16bit(Result);
+
+		Registers.SP = Result;
+
+		return 2;
+	}
+
 	// 8 bit
 	int CPU::ADD_A_B()
 	{
-		AddtoA(Registers.B);
+		ADDtoA(Registers.B);
 
 		return 1;
 	}
 
 	int CPU::ADD_A_C()
 	{
-		AddtoA(Registers.C);
+		ADDtoA(Registers.C);
 
 		return 1;
 	}
 
 	int CPU::ADD_A_D()
 	{
-		AddtoA(Registers.D);
+		ADDtoA(Registers.D);
 
 		return 1;
 	}
 
 	int CPU::ADD_A_E()
 	{
-		AddtoA(Registers.E);
+		ADDtoA(Registers.E);
 
 		return 1;
+	}
+
+	int CPU::ADD_A_H()
+	{
+		ADDtoA(Registers.H);
+
+		return 1;
+	}
+
+	int CPU::ADD_A_L()
+	{
+		ADDtoA(Registers.L);
+
+		return 1;
+	}
+
+	int CPU::ADD_A_MHL()
+	{
+		ADDtoA(Memory[Registers.GetHL()]);
+
+		return 1;
+	}
+
+	int CPU::ADD_A_A()
+	{
+		ADDtoA(Registers.A);
+
+		return 1;
+	}
+
+	int CPU::ADD_A_U8()
+	{
+		ADDtoA(Memory[Registers.PC + 1]);
+
+		return 2;
+	}
+
+	// ADC instructions(all 8 bit)
+	int CPU::ADC_A_B()
+	{
+		ADDtoA(Registers.B + Registers.GetCarryFlag());
+
+		return 1;
+	}
+
+	int CPU::ADC_A_C()
+	{
+		ADDtoA(Registers.C + Registers.GetCarryFlag());
+
+		return 1;
+	}
+
+	int CPU::ADC_A_D()
+	{
+		ADDtoA(Registers.D + Registers.GetCarryFlag());
+
+		return 1;
+	}
+
+	int CPU::ADC_A_E()
+	{
+		ADDtoA(Registers.E + Registers.GetCarryFlag());
+
+		return 1;
+	}
+
+	int CPU::ADC_A_H()
+	{
+		ADDtoA(Registers.H + Registers.GetCarryFlag());
+
+		return 1;
+	}
+
+	int CPU::ADC_A_L()
+	{
+		ADDtoA(Registers.L + Registers.GetCarryFlag());
+
+		return 1;
+	}
+
+	int CPU::ADC_A_MHL()
+	{
+		ADDtoA(Memory[Registers.GetHL()] + Registers.GetCarryFlag());
+
+		return 1;
+	}
+
+	int CPU::ADC_A_A()
+	{
+		ADDtoA(Registers.A);
+
+		return 1;
+	}
+
+	int CPU::ADC_A_U8()
+	{
+		ADDtoA(Memory[Registers.PC + 1] + Registers.GetCarryFlag());
+
+		return 2;
 	}
 
 }

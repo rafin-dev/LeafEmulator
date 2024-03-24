@@ -55,12 +55,29 @@ namespace GameBoyEmulator {
 		InstructionMap.insert(MAPPAIR(0x09, ADDFUNC(ADD_HL_BC)));
 		InstructionMap.insert(MAPPAIR(0x29, ADDFUNC(ADD_HL_HL)));
 		InstructionMap.insert(MAPPAIR(0x39, ADDFUNC(ADD_HL_SP)));
+		InstructionMap.insert(MAPPAIR(0xE8, ADDFUNC(ADD_SP_I8)));
 
 		// 8 bit ADDs
 		InstructionMap.insert(MAPPAIR(0x80, ADDFUNC(ADD_A_B)));
 		InstructionMap.insert(MAPPAIR(0x81, ADDFUNC(ADD_A_C)));
 		InstructionMap.insert(MAPPAIR(0x82, ADDFUNC(ADD_A_D)));
 		InstructionMap.insert(MAPPAIR(0x83, ADDFUNC(ADD_A_E)));
+		InstructionMap.insert(MAPPAIR(0x84, ADDFUNC(ADD_A_H)));
+		InstructionMap.insert(MAPPAIR(0x85, ADDFUNC(ADD_A_L)));
+		InstructionMap.insert(MAPPAIR(0x86, ADDFUNC(ADD_A_MHL)));
+		InstructionMap.insert(MAPPAIR(0x87, ADDFUNC(ADD_A_A)));
+		InstructionMap.insert(MAPPAIR(0xC6, ADDFUNC(ADD_A_U8)));
+
+		// ADC instructions(all 8 bit)
+		InstructionMap.insert(MAPPAIR(0x88, ADDFUNC(ADC_A_B)));
+		InstructionMap.insert(MAPPAIR(0x89, ADDFUNC(ADC_A_C)));
+		InstructionMap.insert(MAPPAIR(0x8A, ADDFUNC(ADC_A_D)));
+		InstructionMap.insert(MAPPAIR(0x8B, ADDFUNC(ADC_A_E)));
+		InstructionMap.insert(MAPPAIR(0x8C, ADDFUNC(ADC_A_H)));
+		InstructionMap.insert(MAPPAIR(0x8D, ADDFUNC(ADC_A_L)));
+		InstructionMap.insert(MAPPAIR(0x8E, ADDFUNC(ADC_A_MHL)));
+		InstructionMap.insert(MAPPAIR(0x8F, ADDFUNC(ADC_A_A)));
+		InstructionMap.insert(MAPPAIR(0xCE, ADDFUNC(ADC_A_U8)));
 	}
 
 	void CPU::Step()
