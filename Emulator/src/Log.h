@@ -18,6 +18,8 @@ private:
 	static std::shared_ptr<spdlog::logger> s_SysLogger;
 };
 
+#ifdef DEBUG
+
 #define EMU_LOG_ERROR(...)   ::Log::GetEmulatorLogger()->error(__VA_ARGS__)
 #define EMU_LOG_WARN(...)    ::Log::GetEmulatorLogger()->warn(__VA_ARGS__)
 #define EMU_LOG_INFO(...)    ::Log::GetEmulatorLogger()->info(__VA_ARGS__)
@@ -27,4 +29,18 @@ private:
 #define SYS_LOG_WARN(...)    ::Log::GetSystemLogger()->warn(__VA_ARGS__)
 #define SYS_LOG_INFO(...)    ::Log::GetSystemLogger()->info(__VA_ARGS__)
 #define SYS_LOG_TRACE(...)   ::Log::GetSystemLogger()->trace(__VA_ARGS__)
+
+#else
+
+#define EMU_LOG_ERROR(...)
+#define EMU_LOG_WARN(...) 
+#define EMU_LOG_INFO(...) 
+#define EMU_LOG_TRACE(...)
+
+#define SYS_LOG_ERROR(...)
+#define SYS_LOG_WARN(...) 
+#define SYS_LOG_INFO(...) 
+#define SYS_LOG_TRACE(...)
+
+#endif
 

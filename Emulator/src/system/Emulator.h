@@ -3,8 +3,6 @@
 #include "cpu/CPU.h"
 #include "string"
 
-#define KILOBYTE 1024
-
 namespace GameBoyEmulator {
 
 	class Emulator
