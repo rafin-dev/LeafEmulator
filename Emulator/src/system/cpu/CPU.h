@@ -41,12 +41,46 @@ namespace GameBoyEmulator {
 		inline uint16_t GetHL() { return Combine(H, L); }
 		inline void SetHL(uint16_t value) { SetCombination(value, &H, &L); }
 
+		inline void SetZeroFlag(bool n)
+		{ 
+			SetFlag(7, n);
+		}
+
+		inline void SetSubtractionFlag(bool n) 
+		{ 
+			SetFlag(6, n);
+		}
+		
+		inline void SetHalfCarryFlag(bool n)
+		{ 
+			SetFlag(5, n);
+		}
+		
+		inline void SetCarryFlag(bool n) 
+		{ 
+			SetFlag(4, n);
+		}
+
 	private:
 
-		// Inline function to automate the mixing and separating of the registers
+		// functions to automate the mixing and separating of the registers, and flag setting
 		uint16_t Combine(uint8_t register1, uint8_t register2);
 
 		void SetCombination(uint16_t value, uint8_t* register1, uint8_t* register2);
+
+		// Helper function for the flag register
+		void SetFlag(int flagIndex, bool n)
+		{
+			// If n is true, do a simple bitmap setting
+			if (n)
+			{
+				F | (1 << flagIndex);
+			}
+			else // If not, set the bit to false by left shifting 1 by the bit index, reverting all the bits in the result and ANDING(&) it with the flag register
+			{
+				F & (~(1 << flagIndex));
+			}
+		}
 	};
 
 	// CPU class
@@ -59,6 +93,12 @@ namespace GameBoyEmulator {
 		void Step();
 
 	private:
+
+		// Helper functions for the ADD instructions
+		void SetAddInstructionsFlags(int ADDresult);
+		void ADDtoHL(uint16_t n);
+		void AddtoA(uint8_t n);
+
 
 		// Pointer to the memory (other objects such as the PPU will utilize the same memory)
 		uint8_t* Memory;
@@ -107,6 +147,25 @@ namespace GameBoyEmulator {
 		int DEC_L();
 		int DEC_A();
 
-		CPU() {}
+		// Arithimetical Instructions
+
+		// ADD instructions
+
+		// 16 bit
+		int ADD_HL_BC();
+		int ADD_HL_DE();
+		int ADD_HL_HL();
+		int ADD_HL_SP();
+
+		// 8 bit
+		int ADD_A_B();
+		int ADD_A_C();
+		int ADD_A_D();
+		int ADD_A_E();
+
+		CPU()
+		: Memory(nullptr)
+		{
+		}
 	};
 }
