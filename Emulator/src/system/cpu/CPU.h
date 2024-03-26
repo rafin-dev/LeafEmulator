@@ -119,11 +119,15 @@ namespace GameBoyEmulator {
 
 	private:
 
-		// Helper functions for the ADD instructions
-		void SetAddInstructionsFlags16bit(int ADDresult);
+		// Helper functions for the ADD and ADC instructions
+		void SetAddInstructionsFlags16bit(long ADDresult);
 		void SetAddInstructionsFlags8bit(int ADDresult);
-		void ADDtoHL(uint16_t n);
-		void ADDtoA(uint8_t n);
+		void ADDtoHL(int n);
+		void ADDtoA(int n);
+
+		// Helper functions for the SUB and SBC instructions
+		void SetSubInstructionsFlags(int N);
+		void SubFromA(int n);
 
 
 		// Pointer to the memory (other objects such as the PPU will utilize the same memory)
@@ -207,6 +211,18 @@ namespace GameBoyEmulator {
 		int ADC_A_MHL();
 		int ADC_A_A();
 		int ADC_A_U8();
+
+		// SUB instructions (all 8 bit)
+		int SUB_A_B();
+		int SUB_A_C();
+		int SUB_A_D();
+		int SUB_A_E();
+		int SUB_A_H();
+		int SUB_A_L();
+		// MHL stands for memory at HL, this instruction subtracts A by the value in memory at address HL
+		int SUB_A_MHL();
+		int SUB_A_A();
+		int SUB_A_U8();
 
 		CPU()
 		: Memory(nullptr)

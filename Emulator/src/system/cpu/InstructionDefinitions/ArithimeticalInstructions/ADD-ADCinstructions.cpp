@@ -4,27 +4,29 @@ namespace GameBoyEmulator {
 
 	// Helper functions for the ADD instructions
 
-	void CPU::SetAddInstructionsFlags16bit(int ADDresult)
+	void CPU::SetAddInstructionsFlags16bit(long ADDresult)
 	{
 		Registers.SetSubtractionFlag(false);
-		Registers.SetHalfCarryFlag(ADDresult > 0x00FF);
+		Registers.SetHalfCarryFlag(ADDresult > 0xFFF);
 		Registers.SetCarryFlag(ADDresult > 0xFFFF);
 	}
 
 	void CPU::SetAddInstructionsFlags8bit(int ADDresult)
 	{
-		SetAddInstructionsFlags16bit(ADDresult);
+		Registers.SetSubtractionFlag(false);
+		Registers.SetHalfCarryFlag(ADDresult > 0xF);
+		Registers.SetCarryFlag(ADDresult > 0xFF);
 		Registers.SetZeroFlag(ADDresult == 0);
 	}
 
-	void CPU::ADDtoHL(uint16_t n)
+	void CPU::ADDtoHL(int n)
 	{
 		int Result = Registers.GetHL() + n;
 		SetAddInstructionsFlags16bit(Result);
 		Registers.SetHL(Result);
 	}
 
-	void CPU::ADDtoA(uint8_t n)
+	void CPU::ADDtoA(int n)
 	{
 		int Result = Registers.A + n;
 		SetAddInstructionsFlags8bit(Result);
@@ -202,5 +204,4 @@ namespace GameBoyEmulator {
 
 		return 2;
 	}
-
 }
