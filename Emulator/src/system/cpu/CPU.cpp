@@ -89,6 +89,17 @@ namespace GameBoyEmulator {
 		InstructionMap.insert(MAPPAIR(0x96, ADDFUNC(SUB_A_MHL)));
 		InstructionMap.insert(MAPPAIR(0x97, ADDFUNC(SUB_A_A)));
 		InstructionMap.insert(MAPPAIR(0xD6, ADDFUNC(SUB_A_U8)));
+
+		// SBC instructions (all 8 bit)
+		InstructionMap.insert(MAPPAIR(0x98, ADDFUNC(SBC_A_B)));
+		InstructionMap.insert(MAPPAIR(0x99, ADDFUNC(SBC_A_C)));
+		InstructionMap.insert(MAPPAIR(0x9A, ADDFUNC(SBC_A_D)));
+		InstructionMap.insert(MAPPAIR(0x9B, ADDFUNC(SBC_A_E)));
+		InstructionMap.insert(MAPPAIR(0x9C, ADDFUNC(SBC_A_H)));
+		InstructionMap.insert(MAPPAIR(0x9D, ADDFUNC(SBC_A_L)));
+		InstructionMap.insert(MAPPAIR(0x9E, ADDFUNC(SBC_A_MHL)));
+		InstructionMap.insert(MAPPAIR(0x9F, ADDFUNC(SBC_A_A)));
+		InstructionMap.insert(MAPPAIR(0xCE, ADDFUNC(SBC_A_U8)));
 	}
 
 	void CPU::Step()

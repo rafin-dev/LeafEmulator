@@ -224,6 +224,18 @@ namespace GameBoyEmulator {
 		int SUB_A_A();
 		int SUB_A_U8();
 
+		// SBC instructions (all 8 bit)
+		int SBC_A_B();
+		int SBC_A_C();
+		int SBC_A_D();
+		int SBC_A_E();
+		int SBC_A_H();
+		int SBC_A_L();
+		// From now on, I will not put the usual comment on top of MHL
+		int SBC_A_MHL();
+		int SBC_A_A();
+		int SBC_A_U8();
+
 		CPU()
 		: Memory(nullptr)
 		{

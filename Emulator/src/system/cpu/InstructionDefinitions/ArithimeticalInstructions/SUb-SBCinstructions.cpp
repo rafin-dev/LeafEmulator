@@ -19,6 +19,7 @@ namespace GameBoyEmulator {
 	}
 
 	// Actual instruction definitions
+	// SUB instructions
 	int CPU::SUB_A_B()
 	{
 		SubFromA(Registers.B);
@@ -86,4 +87,67 @@ namespace GameBoyEmulator {
 	}
 
 	// SBC instructions
+	int CPU::SBC_A_B()
+	{
+		SubFromA(Registers.B + Registers.GetCarryFlag());
+
+		return 1;
+	}
+
+	int CPU::SBC_A_C()
+	{
+		SubFromA(Registers.C + Registers.GetCarryFlag());
+
+		return 1;
+	}
+
+	int CPU::SBC_A_D()
+	{
+		SubFromA(Registers.D + Registers.GetCarryFlag());
+
+		return 1;
+	}
+
+	int CPU::SBC_A_E()
+	{
+		SubFromA(Registers.E + Registers.GetCarryFlag());
+
+		return 1;
+	}
+
+	int CPU::SBC_A_H()
+	{
+		SubFromA(Registers.H + Registers.GetCarryFlag());
+
+		return 1;
+	}
+
+	int GameBoyEmulator::CPU::SBC_A_L()
+	{
+		SubFromA(Registers.L + Registers.GetCarryFlag());
+
+		return 1;
+	}
+
+	int CPU::SBC_A_MHL()
+	{
+		SubFromA(Memory[Registers.GetHL()] + Registers.GetCarryFlag());
+
+		return 1;
+	}
+
+	int CPU::SBC_A_A()
+	{
+		SubFromA(Registers.A + Registers.GetCarryFlag());
+
+		return 1;
+	}
+
+	int CPU::SBC_A_U8()
+	{
+		SubFromA(Memory[Registers.PC + 1] + Registers.GetCarryFlag());
+
+		return 2;
+	}
+	
 }
