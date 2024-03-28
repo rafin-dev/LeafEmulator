@@ -129,6 +129,9 @@ namespace GameBoyEmulator {
 		void SetSubInstructionsFlags(int N);
 		void SubFromA(int n);
 
+		// Helper functions for the AND instructions
+		void SetAndInstructionFlags(uint8_t Result);
+
 
 		// Pointer to the memory (other objects such as the PPU will utilize the same memory)
 		uint8_t* Memory;
@@ -235,6 +238,17 @@ namespace GameBoyEmulator {
 		int SBC_A_MHL();
 		int SBC_A_A();
 		int SBC_A_U8();
+
+		// AND instructions (all 8 bit)
+		int AND_A_B();
+		int AND_A_C();
+		int AND_A_D();
+		int AND_A_E();
+		int AND_A_H();
+		int AND_A_L();
+		int AND_A_MHL();
+		int AND_A_A();
+		int AND_A_U8();
 
 		CPU()
 		: Memory(nullptr)
