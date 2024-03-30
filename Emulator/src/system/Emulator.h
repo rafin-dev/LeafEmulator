@@ -10,6 +10,10 @@ namespace GameBoyEmulator {
 	public:
 		Emulator(std::string& ROMpath);
 
+		bool LoadROM();
+
+		void Update();
+
 	private:
 
 		uint8_t GBMemory[0xFFFF];

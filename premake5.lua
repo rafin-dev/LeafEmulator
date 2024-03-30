@@ -22,7 +22,7 @@ project "Emulator"
 
     files
     {
-        "%{prj.name}/src/**.cpp", "%{prj.name}/src/**.h"
+        "%{prj.name}/src/**.cpp", "%{prj.name}/src/**.h",
     }
 
     defaultplatform ("x64")

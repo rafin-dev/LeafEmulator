@@ -8,4 +8,9 @@ namespace GameBoyEmulator {
 		memset(GBMemory, 0, sizeof(GBMemory));
 	}
 
+	void Emulator::Update()
+	{
+
+	}
+
 }
