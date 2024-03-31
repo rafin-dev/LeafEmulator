@@ -135,6 +135,7 @@ namespace GameBoyEmulator {
 
 		// Increment PC
 		Registers.PC += PCincrementAmount;
+
 	}
 
 	uint16_t GBRegisters::Combine(uint8_t register1, uint8_t register2)

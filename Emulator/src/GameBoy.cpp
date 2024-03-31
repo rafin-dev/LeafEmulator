@@ -11,9 +11,10 @@ namespace GameBoyEmulator {
 	sf::Clock deltaClock;
 
 	GameBoy::GameBoy()
-		: Window(sf::VideoMode(1120, 1008), "Prototype")
+		: Window(sf::VideoMode(1120, 1008), "Prototype", sf::Style::Titlebar | sf::Style::Close)
 	{
 		ImGui::SFML::Init(Window);
+		m = new StartMenu();
 	}
 
 	bool GameBoy::LoadROM(std::string& filePath)
@@ -40,6 +41,11 @@ namespace GameBoyEmulator {
 		ImGui::SFML::Update(Window, deltaClock.restart());
 
 		ImGui::Begin("Prototype Emulator");
+
+		//ImGui::SetWindowPos(ImVec2(140, 126));
+		//ImGui::SetWindowSize(ImVec2(840, 756));
+
+		m->Update();
 
 		ImGui::End();
 	}

@@ -4,6 +4,7 @@
 #include "SFML/Window.hpp"
 #include "SFML/Graphics.hpp"
 #include "SFML/OpenGL.hpp"
+#include "GUIsystem/menus/StartMenu.h"
 
 namespace GameBoyEmulator {
 
@@ -26,6 +27,7 @@ namespace GameBoyEmulator {
 		bool KeepRuning = true;
 
 		sf::RenderWindow Window;
+		Menu* m;
 	};
 
 }
