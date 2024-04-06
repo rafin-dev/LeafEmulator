@@ -20,6 +20,8 @@ private:
 
 #ifdef DEBUG
 
+#define LOG_ON
+
 #define EMU_LOG_ERROR(...)   ::Log::GetEmulatorLogger()->error(__VA_ARGS__)
 #define EMU_LOG_WARN(...)    ::Log::GetEmulatorLogger()->warn(__VA_ARGS__)
 #define EMU_LOG_INFO(...)    ::Log::GetEmulatorLogger()->info(__VA_ARGS__)

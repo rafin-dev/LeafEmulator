@@ -14,5 +14,7 @@ namespace GameBoyEmulator {
 
 	private:
 		static std::function<bool(std::string&)> LoadRomEvent;
+
+		friend class GameBoy;
 	};
 }

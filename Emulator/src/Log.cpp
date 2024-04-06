@@ -9,10 +9,10 @@ void Log::Init()
 {
 	spdlog::set_pattern("%^[%T]%n %v%$");
 
-	s_EmuLogger = spdlog::stdout_color_mt("Emulator");
+	s_EmuLogger = spdlog::stdout_color_mt("Emulator: ");
 	s_EmuLogger->set_level(spdlog::level::trace);
 
-	s_SysLogger = spdlog::stdout_color_mt("System:");
+	s_SysLogger = spdlog::stdout_color_mt("System: ");
 	s_SysLogger->set_level(spdlog::level::trace);
 }
 

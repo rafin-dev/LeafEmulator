@@ -6,12 +6,14 @@
 
 namespace GameBoyEmulator {
 
-	class StartMenu : public Menu
+	class StartMenu : public MenuState
 	{
 		void Update()
 		{
+			ImGui::Begin("Prototype Emulator");
+
 			ImGui::Text("Select a ROM to play!");
-			ImGui::InputText(" ", PathBuffer, IM_ARRAYSIZE(PathBuffer));
+			ImGui::InputTextWithHint(" ", "ROM file path", PathBuffer, IM_ARRAYSIZE(PathBuffer));
 
 			if (ImGui::Button("Load ROM"))
 			{
@@ -19,6 +21,8 @@ namespace GameBoyEmulator {
 				std::string fp(PathBuffer);
 				SystemManager::LoadROM(std::string(fp));
 			}
+
+			ImGui::End();
 		}
 
 	private:

@@ -1,5 +1,9 @@
 #include "CPU.h"
 
+#include "Log.h"
+#include <sstream>
+#include <iomanip>
+
 // Define to help passing a method as function pointer
 #define ADDFUNC(x) std::bind(&CPU::x, this)
 #define MAPPAIR(...) std::make_pair<uint8_t, InstructionFunc>(__VA_ARGS__)
@@ -126,16 +130,23 @@ namespace GameBoyEmulator {
 		{
 #ifdef DEBUG
 			// If it doens't, throw a exception
+			EMU_LOG_ERROR("CRITICAL ERROR: UNKNOWN INSTRUCTION! STOPING ROM EXECUTION.");
 			throw std::exception("Unknown Instruction");
 #endif // DEBUG
 		}
+
+		// In case logging is on, logs the soon to be executed instruction
+#ifdef LOG_ON
+		std::stringstream stream;
+		stream << "0x" << std::hex << Memory[Registers.PC];
+		EMU_LOG_TRACE("Executing instruction: {}", stream.str());
+#endif
 
 		// Execute the instrcution, and also gets the amount of bytes used by that opcode
 		int PCincrementAmount = mappedInstruction->second();
 
 		// Increment PC
 		Registers.PC += PCincrementAmount;
-
 	}
 
 	uint16_t GBRegisters::Combine(uint8_t register1, uint8_t register2)

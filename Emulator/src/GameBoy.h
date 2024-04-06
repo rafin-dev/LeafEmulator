@@ -1,10 +1,15 @@
 #pragma once
 
-#include <string>
 #include "SFML/Window.hpp"
 #include "SFML/Graphics.hpp"
 #include "SFML/OpenGL.hpp"
+
+#include <functional>
+#include <string>
+
 #include "GUIsystem/menus/StartMenu.h"
+#include "GUIsystem/MenuManager.h"
+
 
 namespace GameBoyEmulator {
 
@@ -13,6 +18,7 @@ namespace GameBoyEmulator {
 	public:
 
 		GameBoy();
+		~GameBoy();
 
 		void Run(std::string filepath);
 
@@ -27,7 +33,8 @@ namespace GameBoyEmulator {
 		bool KeepRuning = true;
 
 		sf::RenderWindow Window;
-		Menu* m;
+		MenuManager* MenuStateMachine;
+		
 	};
 
 }

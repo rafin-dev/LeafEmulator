@@ -11,14 +11,28 @@ namespace GameBoyEmulator {
 	sf::Clock deltaClock;
 
 	GameBoy::GameBoy()
-		: Window(sf::VideoMode(1120, 1008), "Prototype", sf::Style::Titlebar | sf::Style::Close)
+		: Window(sf::VideoMode(1120, 1008), "Prototype", sf::Style::Titlebar | sf::Style::Close),
+		MenuStateMachine(new MenuManager)
 	{
+		SYS_LOG_TRACE("Initialized window");
+
 		ImGui::SFML::Init(Window);
-		m = new StartMenu();
+		SYS_LOG_TRACE("Initialized ImGui");
+
+		SYS_LOG_TRACE("Initializing Menu-System connector");
+		SystemManager::LoadRomEvent = std::bind(&GameBoy::LoadROM, this, std::placeholders::_1);
+
+		SYS_LOG_TRACE("Menu-System connector initialized");
+	}
+
+	GameBoy::~GameBoy()
+	{
+		delete MenuStateMachine;
 	}
 
 	bool GameBoy::LoadROM(std::string& filePath)
 	{
+		SYS_LOG_INFO("Loading ROM at: {}", filePath);
 		return true;
 	}
 
@@ -31,7 +45,7 @@ namespace GameBoyEmulator {
 
 			if (event.type == sf::Event::Closed)
 			{
-				Window.close();
+				KeepRuning = false;
 			}
 		}
 	}
@@ -40,14 +54,7 @@ namespace GameBoyEmulator {
 	{
 		ImGui::SFML::Update(Window, deltaClock.restart());
 
-		ImGui::Begin("Prototype Emulator");
-
-		//ImGui::SetWindowPos(ImVec2(140, 126));
-		//ImGui::SetWindowSize(ImVec2(840, 756));
-
-		m->Update();
-
-		ImGui::End();
+		MenuStateMachine->Update();
 	}
 
 	void GameBoy::Run(std::string filePath)
@@ -56,20 +63,18 @@ namespace GameBoyEmulator {
 		{
 			PoolEvents();
 
+			
+
 			UpdateImGui();
 
 			Window.clear();
 			ImGui::SFML::Render(Window);
 			Window.display();
-
-
-			if (!Window.isOpen())
-			{
-				KeepRuning = false;
-			}
 		}
 
+		SYS_LOG_TRACE("ShutingDown");
 		ImGui::SFML::Shutdown();
+		Window.close();
 	}
 
 }
