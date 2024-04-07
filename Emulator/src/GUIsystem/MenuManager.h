@@ -16,6 +16,8 @@ namespace GameBoyEmulator {
 
 		void Update();
 
+		void SwitchMenu(int mID);
+
 	private:
 
 		// Map that holds a all the menus and correlates them to their IDs

@@ -1,5 +1,7 @@
 #include "MenuManager.h"
 
+#include "menus/EmulationErrorMenu.h"
+
 #define InsertMenu(x) Menus.insert(std::make_pair<int, MenuState*>(MenuID(x), new x()))
 
 namespace GameBoyEmulator {
@@ -8,9 +10,11 @@ namespace GameBoyEmulator {
 	{
 		// Sets all the Menu States
 		InsertMenu(StartMenu);
+		InsertMenu(EmulationErrorMenu);
 
 		// Set the inital menu
 		CurrentMenu = Menus[MenuID(StartMenu)];
+		CurrentMenu->WakeUp();
 	}
 
 	MenuManager::~MenuManager()
@@ -30,23 +34,28 @@ namespace GameBoyEmulator {
 		// Checks if the current menu called for a menu change
 		if (CurrentMenu->ShouldSwitchMenus())
 		{
-			SYS_LOG_TRACE("Switching Menus, New Menu ID: {}", CurrentMenu->GetNextmenuID());
-			// Searches for the new menu
-			auto m = Menus.find(CurrentMenu->GetNextmenuID());
+			SwitchMenu(CurrentMenu->GetNextmenuID());
+		}
+	}
+
+	void MenuManager::SwitchMenu(int mID)
+	{
+		SYS_LOG_TRACE("Switching Menus, New Menu ID: {}", mID);
+		// Searches for the new menu
+		auto m = Menus.find(mID);
 
 #ifdef DEBUG
-			// Asserts the existance of the menu (in debug mode)
-			if (m == Menus.end())
-			{
-				SYS_LOG_ERROR("CRITICAL ERROR, ATEMPT TO WAKE UNKNOWN MENU! STOPING EXECUTION");
-				throw std::exception("Unknow Menu");
-			}
+		// Asserts the existance of the menu (in debug mode)
+		if (m == Menus.end())
+		{
+			SYS_LOG_ERROR("CRITICAL ERROR, ATEMPT TO WAKE UNKNOWN MENU OF ID: {}! STOPING EXECUTION", mID);
+			throw std::exception("Unknow Menu");
+		}
 #endif
 
-			// Changes the menu
-			CurrentMenu->Sleep();
-			CurrentMenu = m->second;
-			CurrentMenu->WakeUp();
-		}
+		// Changes the menu
+		CurrentMenu->Sleep();
+		CurrentMenu = m->second;
+		CurrentMenu->WakeUp();
 	}
 }

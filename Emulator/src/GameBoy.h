@@ -25,6 +25,7 @@ namespace GameBoyEmulator {
 	private:
 
 		bool LoadROM(std::string& filePath);
+		void CallEmuErrorMenu();
 
 		void PoolEvents();
 

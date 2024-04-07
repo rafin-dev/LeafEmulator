@@ -51,12 +51,12 @@ namespace GameBoyEmulator {
 			return GetFlag(7);
 		}
 
-		inline void SetSubtractionFlag(bool n) 
+		inline void SetNegativeFlag(bool n) 
 		{ 
 			SetFlag(6, n);
 		}
 
-		inline bool GetSubtractionFlag()
+		inline bool GetNegativeFlag()
 		{
 			return GetFlag(6);
 		}
@@ -119,18 +119,26 @@ namespace GameBoyEmulator {
 
 	private:
 
+		void AddInstructionsToMap();
+
 		// Helper functions for the ADD and ADC instructions
 		void SetAddInstructionsFlags16bit(long ADDresult);
 		void SetAddInstructionsFlags8bit(int ADDresult);
 		void ADDtoHL(int n);
 		void ADDtoA(int n);
 
-		// Helper functions for the SUB and SBC instructions
+		// Helper functions for the SUB, SBC and CP instructions
 		void SetSubInstructionsFlags(int N);
 		void SubFromA(int n);
 
 		// Helper functions for the AND instructions
 		void SetAndInstructionFlags(uint8_t Result);
+
+		// Helper functions for the XOR instructions
+		void SetXorInstructionFlags(uint8_t Result);
+
+		// Helper functions for the OR instrcutions
+		void SetORInstructionFlags(uint8_t Result);
 
 
 		// Pointer to the memory (other objects such as the PPU will utilize the same memory)
@@ -249,6 +257,39 @@ namespace GameBoyEmulator {
 		int AND_A_MHL();
 		int AND_A_A();
 		int AND_A_U8();
+
+		// XOR instructions (all 8 bit)
+		int XOR_A_B();
+		int XOR_A_C();
+		int XOR_A_D();
+		int XOR_A_E();
+		int XOR_A_H();
+		int XOR_A_L();
+		int XOR_A_MHL();
+		int XOR_A_A();
+		int XOR_A_U8();
+
+		// OR instruction definitions
+		int OR_A_B();
+		int OR_A_C();
+		int OR_A_D();
+		int OR_A_E();
+		int OR_A_H();
+		int OR_A_L();
+		int OR_A_MHL();
+		int OR_A_A();
+		int OR_A_U8();
+
+		// CP instructions (all 8 bit)
+		int CP_A_B();
+		int CP_A_C();
+		int CP_A_D();
+		int CP_A_E();
+		int CP_A_H();
+		int CP_A_L();
+		int CP_A_MHL();
+		int CP_A_A();
+		int CP_A_U8();
 
 		CPU()
 		: Memory(nullptr)

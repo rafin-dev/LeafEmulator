@@ -6,7 +6,7 @@ namespace GameBoyEmulator {
 	void CPU::SetSubInstructionsFlags(int N)
 	{
 		Registers.SetZeroFlag((Registers.A - N) == 0);
-		Registers.SetSubtractionFlag(true);
+		Registers.SetNegativeFlag(true);
 		Registers.SetHalfCarryFlag((((Registers.A & 0xF) - (N & 0xF)) < 0));
 		Registers.SetCarryFlag(N > Registers.A);
 	}

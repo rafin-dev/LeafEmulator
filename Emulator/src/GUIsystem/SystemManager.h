@@ -11,9 +11,11 @@ namespace GameBoyEmulator {
 	{
 	public:
 		static bool LoadROM(std::string& path);
+		static void CallEmulationErrorMenu();
 
 	private:
 		static std::function<bool(std::string&)> LoadRomEvent;
+		static std::function<void(void)> CallEmulationErrorMenuEvent;
 
 		friend class GameBoy;
 	};

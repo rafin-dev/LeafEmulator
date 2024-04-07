@@ -5,6 +5,8 @@
 
 #include <SFML/System/Clock.hpp>
 
+#include "GUIsystem/menus/EmulationErrorMenu.h"
+
 
 namespace GameBoyEmulator {
 
@@ -21,6 +23,7 @@ namespace GameBoyEmulator {
 
 		SYS_LOG_TRACE("Initializing Menu-System connector");
 		SystemManager::LoadRomEvent = std::bind(&GameBoy::LoadROM, this, std::placeholders::_1);
+		SystemManager::CallEmulationErrorMenuEvent = std::bind(&GameBoy::CallEmuErrorMenu, this);
 
 		SYS_LOG_TRACE("Menu-System connector initialized");
 	}
@@ -34,6 +37,11 @@ namespace GameBoyEmulator {
 	{
 		SYS_LOG_INFO("Loading ROM at: {}", filePath);
 		return true;
+	}
+
+	void GameBoy::CallEmuErrorMenu()
+	{
+		MenuStateMachine->SwitchMenu(GetMenuID<EmulationErrorMenu>());
 	}
 
 	void GameBoy::PoolEvents()
@@ -72,7 +80,7 @@ namespace GameBoyEmulator {
 			Window.display();
 		}
 
-		SYS_LOG_TRACE("ShutingDown");
+		SYS_LOG_TRACE("ShuttingDown");
 		ImGui::SFML::Shutdown();
 		Window.close();
 	}

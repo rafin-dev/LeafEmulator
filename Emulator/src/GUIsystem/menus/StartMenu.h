@@ -2,12 +2,13 @@
 
 #include "menu.h"
 #include "GUIsystem/SystemManager.h"
-#include "vendor/IMGUI/imgui.h"
 
 namespace GameBoyEmulator {
 
 	class StartMenu : public MenuState
 	{
+
+	public:
 		void Update()
 		{
 			ImGui::Begin("Prototype Emulator");
@@ -23,6 +24,12 @@ namespace GameBoyEmulator {
 			}
 
 			ImGui::End();
+		}
+
+		void Sleep() override
+		{
+			memset(PathBuffer, 0, sizeof(PathBuffer));
+			SwitchMenus = false;
 		}
 
 	private:

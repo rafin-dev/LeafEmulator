@@ -3,6 +3,7 @@
 namespace GameBoyEmulator {
 
 	std::function<bool(std::string&)> SystemManager::LoadRomEvent;
+	std::function<void(void)> SystemManager::CallEmulationErrorMenuEvent;
 
 	bool SystemManager::LoadROM(std::string& path)
 	{
@@ -14,5 +15,17 @@ namespace GameBoyEmulator {
 #endif // DEBUG
 
 		return LoadRomEvent(path);
+	}
+
+	void SystemManager::CallEmulationErrorMenu()
+	{
+#ifdef DEBUG
+		if (!CallEmulationErrorMenuEvent)
+		{
+			SYS_LOG_ERROR("CRITICAL ERROR, UNINTIALIZED CALL EMULATION ERROR MENU EVENT");
+		}
+#endif // DEBUG
+
+		CallEmulationErrorMenuEvent();
 	}
 }

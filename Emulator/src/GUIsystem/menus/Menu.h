@@ -1,6 +1,7 @@
 #pragma once
 #include "Log.h"
 #include "GUIsystem/SystemManager.h"
+#include "vendor/IMGUI/imgui.h"
 
 namespace GameBoyEmulator {
 

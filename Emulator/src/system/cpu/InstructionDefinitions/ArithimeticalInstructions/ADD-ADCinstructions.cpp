@@ -6,14 +6,14 @@ namespace GameBoyEmulator {
 
 	void CPU::SetAddInstructionsFlags16bit(long ADDresult)
 	{
-		Registers.SetSubtractionFlag(false);
+		Registers.SetNegativeFlag(false);
 		Registers.SetHalfCarryFlag(ADDresult > 0xFFF);
 		Registers.SetCarryFlag(ADDresult > 0xFFFF);
 	}
 
 	void CPU::SetAddInstructionsFlags8bit(int ADDresult)
 	{
-		Registers.SetSubtractionFlag(false);
+		Registers.SetNegativeFlag(false);
 		Registers.SetHalfCarryFlag(ADDresult > 0xF);
 		Registers.SetCarryFlag(ADDresult > 0xFF);
 		Registers.SetZeroFlag(ADDresult == 0);
