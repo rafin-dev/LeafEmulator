@@ -142,6 +142,34 @@ namespace GameBoyEmulator {
 		InstructionMap.insert(MAPPAIR(0xBE, ADDFUNC(CP_A_MHL)));
 		InstructionMap.insert(MAPPAIR(0xBF, ADDFUNC(CP_A_A)));
 		InstructionMap.insert(MAPPAIR(0xFE, ADDFUNC(CP_A_U8)));
+
+		// LD instructions
+
+		// 16 bit
+		InstructionMap.insert(MAPPAIR(0x01, ADDFUNC(LD_BC_U16)));
+		InstructionMap.insert(MAPPAIR(0x11, ADDFUNC(LD_DE_U16)));
+		InstructionMap.insert(MAPPAIR(0x21, ADDFUNC(LD_HL_U16)));
+		InstructionMap.insert(MAPPAIR(0x31, ADDFUNC(LD_SP_U16)));
+		InstructionMap.insert(MAPPAIR(0x08, ADDFUNC(LD_MU16_SP)));
+		InstructionMap.insert(MAPPAIR(0xF9, ADDFUNC(LD_SP_HL)));
+		InstructionMap.insert(MAPPAIR(0xF8, ADDFUNC(LD_HL_SPpI8)));
+
+		// 8 bit
+		InstructionMap.insert(MAPPAIR(0x02, ADDFUNC(LD_MBC_A)));
+		InstructionMap.insert(MAPPAIR(0x12, ADDFUNC(LD_MDE_A)));
+		InstructionMap.insert(MAPPAIR(0x22, ADDFUNC(LD_MHLp_A)));
+		InstructionMap.insert(MAPPAIR(0x32, ADDFUNC(LD_MHLm_A)));
+		InstructionMap.insert(MAPPAIR(0x06, ADDFUNC(LD_B_U8)));
+		InstructionMap.insert(MAPPAIR(0x16, ADDFUNC(LD_D_U8)));
+		InstructionMap.insert(MAPPAIR(0x26, ADDFUNC(LD_H_U8)));
+		InstructionMap.insert(MAPPAIR(0x36, ADDFUNC(LD_MHL_U8)));
+		InstructionMap.insert(MAPPAIR(0x0A, ADDFUNC(LD_A_MBC)));
+		InstructionMap.insert(MAPPAIR(0x1A, ADDFUNC(LD_A_MDE)));
+		InstructionMap.insert(MAPPAIR(0x2A, ADDFUNC(LD_A_MHLp)));
+		InstructionMap.insert(MAPPAIR(0x3A, ADDFUNC(LD_A_MHLm)));
+		InstructionMap.insert(MAPPAIR(0x0E, ADDFUNC(LD_C_U8)));
+		InstructionMap.insert(MAPPAIR(0x1E, ADDFUNC(LD_E_U8)));
+		InstructionMap.insert(MAPPAIR(0x2E, ADDFUNC(LD_L_U8)));
 	}
 
 }

@@ -16,12 +16,15 @@ namespace GameBoyEmulator {
 		: Window(sf::VideoMode(1120, 1008), "Prototype", sf::Style::Titlebar | sf::Style::Close),
 		MenuStateMachine(new MenuManager)
 	{
+		SYS_LOG_TRACE("Prototype GameBoy emulator. Version: Alpha 0.0.0");
+
 		SYS_LOG_TRACE("Initialized window");
 
 		ImGui::SFML::Init(Window);
 		SYS_LOG_TRACE("Initialized ImGui");
 
 		SYS_LOG_TRACE("Initializing Menu-System connector");
+
 		SystemManager::LoadRomEvent = std::bind(&GameBoy::LoadROM, this, std::placeholders::_1);
 		SystemManager::CallEmulationErrorMenuEvent = std::bind(&GameBoy::CallEmuErrorMenu, this);
 
@@ -71,7 +74,7 @@ namespace GameBoyEmulator {
 		{
 			PoolEvents();
 
-			
+
 
 			UpdateImGui();
 

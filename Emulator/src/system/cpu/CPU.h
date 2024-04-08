@@ -291,6 +291,39 @@ namespace GameBoyEmulator {
 		int CP_A_A();
 		int CP_A_U8();
 
+		// LD instructions
+
+		// 16 bit
+		int LD_BC_U16();
+		int LD_DE_U16();
+		int LD_HL_U16();
+		int LD_SP_U16();
+		// MU16 stands for Memory at 16 bit unsigned int, write SP onto the addres u16
+		int LD_MU16_SP();
+		int LD_SP_HL();
+		// SPpI8 stands for Sp + 8 bit int
+		int LD_HL_SPpI8();
+
+		// 8 bit
+		// M{Register name} stands for memory at the addres pointed by the register
+		int LD_MBC_A();
+		int LD_MDE_A();
+		// The "p" after hl indicates that after writing the valeu of A into MHL, HL will be increased, "m" means decreased
+		int LD_MHLp_A();
+		int LD_MHLm_A();
+		int LD_B_U8();
+		int LD_D_U8();
+		int LD_H_U8();
+		int LD_MHL_U8();
+		int LD_A_MBC();
+		int LD_A_MDE();
+		int LD_A_MHLp();
+		int LD_A_MHLm();
+		int LD_C_U8();
+		int LD_E_U8();
+		int LD_L_U8();
+		int LD_A_U8();
+
 		CPU()
 		: Memory(nullptr)
 		{

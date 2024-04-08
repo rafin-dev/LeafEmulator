@@ -14,63 +14,72 @@ namespace GameBoyEmulator {
 	// Instruction definitions
 	int CPU::XOR_A_B()
 	{
-		SetXorInstructionFlags(Registers.A ^ Registers.B);
+		Registers.A = Registers.A ^ Registers.B;
+		SetXorInstructionFlags(Registers.A);
 
 		return 1;
 	}
 
 	int CPU::XOR_A_C()
 	{
-		SetXorInstructionFlags(Registers.A ^ Registers.B);
+		Registers.A = Registers.A ^ Registers.C;
+		SetXorInstructionFlags(Registers.A);
 
 		return 1;
 	}
 	
 	int CPU::XOR_A_D()
 	{
-		SetXorInstructionFlags(Registers.A ^ Registers.B);
+		Registers.A = Registers.A ^ Registers.D;
+		SetXorInstructionFlags(Registers.A);
 
 		return 1;
 	}
 
 	int CPU::XOR_A_E()
 	{
-		SetXorInstructionFlags(Registers.A ^ Registers.E);
+		Registers.A = Registers.A ^ Registers.E;
+		SetXorInstructionFlags(Registers.A);
 
 		return 1;
 	}
 
 	int CPU::XOR_A_H()
 	{
-		SetXorInstructionFlags(Registers.A ^ Registers.H);
+		Registers.A = Registers.A ^ Registers.H;
+		SetXorInstructionFlags(Registers.A);
 
 		return 1;
 	}
 
 	int CPU::XOR_A_L()
 	{
-		SetXorInstructionFlags(Registers.A ^ Registers.L);
+		Registers.A = Registers.A ^ Registers.L;
+		SetXorInstructionFlags(Registers.A);
 
 		return 1;
 	}
 
 	int CPU::XOR_A_MHL()
 	{
-		SetXorInstructionFlags(Registers.A ^ Memory[Registers.GetHL()]);
+		Registers.A = Registers.A ^ Memory[Registers.GetHL()];
+		SetXorInstructionFlags(Registers.A);
 
 		return 1;
 	}
 
 	int CPU::XOR_A_A()
 	{
-		SetXorInstructionFlags(Registers.A ^ Registers.A);
+		Registers.A = Registers.A ^ Registers.A;
+		SetXorInstructionFlags(Registers.A);
 
 		return 1;
 	}
 
 	int CPU::XOR_A_U8()
 	{
-		SetXorInstructionFlags(Registers.A ^ Memory[Registers.PC + 1]);
+		Registers.A = Registers.A ^ Memory[Registers.PC + 1];
+		SetXorInstructionFlags(Registers.A);
 
 		return 2;
 	}

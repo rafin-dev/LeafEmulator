@@ -14,63 +14,72 @@ namespace GameBoyEmulator {
 	// Actual instruction definitions
 	int CPU::AND_A_B()
 	{
-		SetAndInstructionFlags(Registers.A & Registers.B);
+		Registers.A = Registers.A & Registers.B;
+		SetAndInstructionFlags(Registers.A);
 
 		return 1;
 	}
 
 	int CPU::AND_A_C()
 	{
-		SetAndInstructionFlags(Registers.A & Registers.B);
+		Registers.A = Registers.A & Registers.C;
+		SetAndInstructionFlags(Registers.A);
 
 		return 1;
 	}
 
 	int CPU::AND_A_D()
 	{
-		SetAndInstructionFlags(Registers.A & Registers.B);
+		Registers.A = Registers.A & Registers.B;
+		SetAndInstructionFlags(Registers.A);
 
 		return 1;
 	}
 
 	int CPU::AND_A_E()
 	{
-		SetAndInstructionFlags(Registers.A & Registers.E);
+		Registers.A = Registers.A & Registers.E;
+		SetAndInstructionFlags(Registers.A);
 
 		return 1;
 	}
 
 	int CPU::AND_A_H()
 	{
-		SetAndInstructionFlags(Registers.A & Registers.H);
+		Registers.A = Registers.A & Registers.H;
+		SetAndInstructionFlags(Registers.A);
 
 		return 1;
 	}
 
 	int CPU::AND_A_L()
 	{
-		SetAndInstructionFlags(Registers.A & Registers.L);
+		Registers.A = Registers.A & Registers.L;
+		SetAndInstructionFlags(Registers.A);
 
 		return 1;
 	}
 
 	int CPU::AND_A_MHL()
 	{
-		SetAndInstructionFlags(Registers.A & Memory[Registers.GetHL()]);
+		Registers.A = Registers.A & Memory[Registers.GetHL()];
+		SetAndInstructionFlags(Registers.A);
 
 		return 1;
 	}
 
 	int CPU::AND_A_A()
 	{
-		SetAndInstructionFlags(Registers.A & Registers.A);
+		Registers.A = Registers.A & Registers.A;
+		SetAndInstructionFlags(Registers.A);
 
 		return 1;
 	}
 
 	int CPU::AND_A_U8()
 	{
-		SetAndInstructionFlags(Registers.A & Memory[Registers.PC + 1]);
+		Registers.A = Registers.A & Memory[Registers.PC + 1];
+		SetAndInstructionFlags(Registers.A);
 
 		return 2;
 	}

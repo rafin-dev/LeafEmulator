@@ -22,7 +22,7 @@ namespace GameBoyEmulator {
 
 	int CPU::OR_A_C()
 	{
-		Registers.A = Registers.A | Registers.B;
+		Registers.A = Registers.A | Registers.C;
 		SetORInstructionFlags(Registers.A);
 
 		return 1;
@@ -30,7 +30,7 @@ namespace GameBoyEmulator {
 
 	int CPU::OR_A_D()
 	{
-		Registers.A = Registers.A | Registers.C;
+		Registers.A = Registers.A | Registers.D;
 		SetORInstructionFlags(Registers.A);
 
 		return 1;

@@ -66,8 +66,8 @@ namespace GameBoyEmulator {
 
 	int CPU::ADD_SP_I8()
 	{
-		int8_t n = Memory[Registers.PC + 1];
-		int Result = Registers.SP + n;
+		int8_t* n = (int8_t*)&Memory[Registers.PC + 1];
+		int Result = Registers.SP + *n;
 
 		Registers.SetZeroFlag(false);
 		SetAddInstructionsFlags16bit(Result);

@@ -122,7 +122,7 @@ namespace GameBoyEmulator {
 		return 1;
 	}
 
-	int GameBoyEmulator::CPU::SBC_A_L()
+	int CPU::SBC_A_L()
 	{
 		SubFromA(Registers.L + Registers.GetCarryFlag());
 

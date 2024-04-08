@@ -3,6 +3,10 @@
 #include "menu.h"
 #include "GUIsystem/SystemManager.h"
 
+#include <sstream>
+#include <iostream>
+#include "SFML/Window.hpp"
+
 namespace GameBoyEmulator {
 
 	class StartMenu : public MenuState
@@ -12,6 +16,8 @@ namespace GameBoyEmulator {
 		void Update()
 		{
 			ImGui::Begin("Prototype Emulator");
+
+			ImGui::SetWindowSize(ImVec2(600, 500));
 
 			ImGui::Text("Select a ROM to play!");
 			ImGui::InputTextWithHint(" ", "ROM file path", PathBuffer, IM_ARRAYSIZE(PathBuffer));
