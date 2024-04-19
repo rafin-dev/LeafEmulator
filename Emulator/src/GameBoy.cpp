@@ -18,6 +18,7 @@ namespace GameBoyEmulator {
 	{
 		SYS_LOG_TRACE("Prototype GameBoy emulator. Version: Alpha 0.0.0");
 
+		Window.setFramerateLimit(60);
 		SYS_LOG_TRACE("Initialized window");
 
 		ImGui::SFML::Init(Window);

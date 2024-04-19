@@ -301,7 +301,7 @@ namespace GameBoyEmulator {
 		// MU16 stands for Memory at 16 bit unsigned int, write SP onto the addres u16
 		int LD_MU16_SP();
 		int LD_SP_HL();
-		// SPpI8 stands for Sp + 8 bit int
+		// SPpI8 stands for Sp + 8 bit integer
 		int LD_HL_SPpI8();
 
 		// 8 bit
@@ -323,6 +323,69 @@ namespace GameBoyEmulator {
 		int LD_E_U8();
 		int LD_L_U8();
 		int LD_A_U8();
+		int LD_B_B();
+		int LD_B_C();
+		int LD_B_D();
+		int LD_B_E();
+		int LD_B_H();
+		int LD_B_L();
+		int LD_B_MHL();
+		int LD_B_A();
+		int LD_C_B();
+		int LD_C_C();
+		int LD_C_D();
+		int LD_C_E();
+		int LD_C_H();
+		int LD_C_L();
+		int LD_C_MHL();
+		int LD_C_A();
+		int LD_D_B();
+		int LD_D_C();
+		int LD_D_D();
+		int LD_D_E();
+		int LD_D_H();
+		int LD_D_L();
+		int LD_D_MHL();
+		int LD_D_A();
+		int LD_E_B();
+		int LD_E_C();
+		int LD_E_D();
+		int LD_E_E();
+		int LD_E_H();
+		int LD_E_L();
+		int LD_E_MHL();
+		int LD_E_A();
+		int LD_H_B();
+		int LD_H_C();
+		int LD_H_D();
+		int LD_H_E();
+		int LD_H_H();
+		int LD_H_L();
+		int LD_H_MHL();
+		int LD_H_A();
+		int LD_L_B();
+		int LD_L_C();
+		int LD_L_D();
+		int LD_L_E();
+		int LD_L_H();
+		int LD_L_L();
+		int LD_L_MHL();
+		int LD_L_A();
+		int LD_MHL_B();
+		int LD_MHL_C();
+		int LD_MHL_D();
+		int LD_MHL_E();
+		int LD_MHL_H();
+		int LD_MHL_L();
+		int LD_MHL_A();
+		int LD_A_B();
+		int LD_A_C();
+		int LD_A_D();
+		int LD_A_E();
+		int LD_A_H();
+		int LD_A_L();
+		int LD_A_MHL();
+		int LD_A_A();
 
 		CPU()
 		: Memory(nullptr)
