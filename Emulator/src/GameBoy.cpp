@@ -88,5 +88,4 @@ namespace GameBoyEmulator {
 		ImGui::SFML::Shutdown();
 		Window.close();
 	}
-
 }

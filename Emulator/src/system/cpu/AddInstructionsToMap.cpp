@@ -46,6 +46,9 @@ namespace GameBoyEmulator {
 		InstructionMap.insert(MAPPAIR(0x2D, ADDFUNC(DEC_L)));
 		InstructionMap.insert(MAPPAIR(0x3D, ADDFUNC(DEC_A)));
 
+		InstructionMap.insert(MAPPAIR(0x3F, ADDFUNC(CCF)));
+		InstructionMap.insert(MAPPAIR(0x37, ADDFUNC(SCF)));
+
 		// ADD Instructions
 
 		// 16 bit ADDs
@@ -233,6 +236,38 @@ namespace GameBoyEmulator {
 		InstructionMap.insert(MAPPAIR(0x7D, ADDFUNC(LD_A_L)));
 		InstructionMap.insert(MAPPAIR(0x7E, ADDFUNC(LD_A_MHL)));
 		InstructionMap.insert(MAPPAIR(0x7F, ADDFUNC(LD_A_A)));
+
+		// Flow control instructions
+		InstructionMap.insert(MAPPAIR(0xC3, ADDFUNC(JP_U16)));
+		InstructionMap.insert(MAPPAIR(0xE9, ADDFUNC(JP_HL)));
+		InstructionMap.insert(MAPPAIR(0xDA, ADDFUNC(JP_C_U16)));
+		InstructionMap.insert(MAPPAIR(0xCA, ADDFUNC(JP_Z_U16)));
+		InstructionMap.insert(MAPPAIR(0xD2, ADDFUNC(JP_NC_U16)));
+		InstructionMap.insert(MAPPAIR(0xC2, ADDFUNC(JP_NZ_U16)));
+		InstructionMap.insert(MAPPAIR(0x18, ADDFUNC(JR_I8)));
+		InstructionMap.insert(MAPPAIR(0x28, ADDFUNC(JR_Z_I8)));
+		InstructionMap.insert(MAPPAIR(0x38, ADDFUNC(JR_C_I8)));
+		InstructionMap.insert(MAPPAIR(0x20, ADDFUNC(JR_NZ_I8)));
+		InstructionMap.insert(MAPPAIR(0x30, ADDFUNC(JR_NC_I8)));
+		InstructionMap.insert(MAPPAIR(0xCD, ADDFUNC(CALL_U16)));
+		InstructionMap.insert(MAPPAIR(0xCC, ADDFUNC(CALL_Z_U16)));
+		InstructionMap.insert(MAPPAIR(0xDC, ADDFUNC(CALL_C_U16)));
+		InstructionMap.insert(MAPPAIR(0xC4, ADDFUNC(CALL_NZ_U16)));
+		InstructionMap.insert(MAPPAIR(0xD4, ADDFUNC(CALL_NC_U16)));
+		InstructionMap.insert(MAPPAIR(0xC9, ADDFUNC(RET)));
+		InstructionMap.insert(MAPPAIR(0xC8, ADDFUNC(RET_Z)));
+		InstructionMap.insert(MAPPAIR(0xD8, ADDFUNC(RET_C)));
+		InstructionMap.insert(MAPPAIR(0xC0, ADDFUNC(RET_NZ)));
+		InstructionMap.insert(MAPPAIR(0xD0, ADDFUNC(RET_NC)));
+		InstructionMap.insert(MAPPAIR(0xD9, ADDFUNC(RETI)));
+		InstructionMap.insert(MAPPAIR(0xC7, ADDFUNC(RST_0x00)));
+		InstructionMap.insert(MAPPAIR(0xD7, ADDFUNC(RST_0x10)));
+		InstructionMap.insert(MAPPAIR(0xE7, ADDFUNC(RST_0x20)));
+		InstructionMap.insert(MAPPAIR(0xF7, ADDFUNC(RST_0x30)));
+		InstructionMap.insert(MAPPAIR(0xCF, ADDFUNC(RST_0x08)));
+		InstructionMap.insert(MAPPAIR(0xDF, ADDFUNC(RST_0x18)));
+		InstructionMap.insert(MAPPAIR(0xEF, ADDFUNC(RST_0x28)));
+		InstructionMap.insert(MAPPAIR(0xEF, ADDFUNC(RST_0x38)));
 	}
 
 }

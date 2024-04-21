@@ -31,6 +31,9 @@ namespace GameBoyEmulator {
 
 		uint16_t PC = 0x100;
 
+		// Interrup Master Enabled
+		bool IME = false;
+
 		// Getters and Setters for the register combinations
 		inline uint16_t GetBC() { return Combine(B, C); }
 		inline void SetBC(uint16_t value) { SetCombination(value, &B, &C); }
@@ -140,6 +143,10 @@ namespace GameBoyEmulator {
 		// Helper functions for the OR instrcutions
 		void SetORInstructionFlags(uint8_t Result);
 
+		// Helper functiosn for flow control instructiosn
+		void PushIntoStack(uint16_t value);
+		uint16_t PopFromStack();
+
 
 		// Pointer to the memory (other objects such as the PPU will utilize the same memory)
 		uint8_t* Memory;
@@ -189,6 +196,9 @@ namespace GameBoyEmulator {
 		int DEC_A();
 
 		// Arithimetical Instructions
+
+		int CCF();
+		int SCF();
 
 		// ADD instructions
 
@@ -387,9 +397,44 @@ namespace GameBoyEmulator {
 		int LD_A_MHL();
 		int LD_A_A();
 
+		// Flow control instructions
+		int JP_U16();
+		int JP_HL();
+		int JP_C_U16();
+		int JP_Z_U16();
+		int JP_NC_U16();
+		int JP_NZ_U16();
+		int JR_I8();
+		int JR_Z_I8();
+		int JR_C_I8();
+		int JR_NZ_I8();
+		int JR_NC_I8();
+		int CALL_U16();
+		int CALL_Z_U16();
+		int CALL_C_U16();
+		int CALL_NZ_U16();
+		int CALL_NC_U16();
+		int RET();
+		int RET_Z();
+		int RET_C();
+		int RET_NZ();
+		int RET_NC();
+		int RETI();
+		int RST_0x00();
+		int RST_0x10();
+		int RST_0x20();
+		int RST_0x30();
+		int RST_0x08();
+		int RST_0x18();
+		int RST_0x28();
+		int RST_0x38();
+
 		CPU()
 		: Memory(nullptr)
 		{
 		}
 	};
 }
+
+// Defines used by multiple instruction sets to simplify the code
+#define GETU16M (Memory[Registers.PC + 1] << 8) | Memory[Registers.PC + 2]

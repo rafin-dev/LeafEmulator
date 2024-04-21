@@ -35,6 +35,24 @@ namespace GameBoyEmulator {
 
 	// Actual Instruction definitions
 
+	int CPU::CCF()
+	{
+		Registers.SetCarryFlag(!Registers.GetCarryFlag());
+		Registers.SetNegativeFlag(false);
+		Registers.SetHalfCarryFlag(false);
+
+		return 1;
+	}
+
+	int CPU::SCF()
+	{
+		Registers.SetCarryFlag(true);
+		Registers.SetNegativeFlag(false);
+		Registers.SetHalfCarryFlag(false);
+
+		return 1;
+	}
+
 	// 16 bit
 	int CPU::ADD_HL_BC()
 	{

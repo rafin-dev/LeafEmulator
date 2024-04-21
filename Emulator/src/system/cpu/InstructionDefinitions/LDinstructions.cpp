@@ -2,8 +2,6 @@
 
 namespace GameBoyEmulator {
 
-#define GETU16M (Memory[Registers.PC + 1] << 8) | Memory[Registers.PC + 2]
-
 	// Instruction definitons
 
 	// 16 bit

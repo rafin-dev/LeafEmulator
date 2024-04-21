@@ -57,4 +57,22 @@ namespace GameBoyEmulator {
 		*register1 = value >> 8;
 		*register2 = value & 0x00FF;
 	}
+
+	void CPU::PushIntoStack(uint16_t value)
+	{
+		Registers.SP -= 1;
+		Memory[Registers.SP] = value >> 8;
+		Registers.SP -= 1;
+		Memory[Registers.SP] = value & 0x00FF;
+	}
+
+	uint16_t CPU::PopFromStack()
+	{
+		uint8_t lsb = Memory[Registers.SP];
+		Registers.SP += 1;
+		uint8_t msb = Memory[Registers.SP];
+		Registers.SP += 1;
+
+		return (msb << 8) | lsb;
+	}
 }
