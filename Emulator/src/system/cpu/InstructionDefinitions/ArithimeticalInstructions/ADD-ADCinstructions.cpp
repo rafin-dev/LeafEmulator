@@ -53,6 +53,79 @@ namespace GameBoyEmulator {
 		return 1;
 	}
 
+	int CPU::CPL()
+	{
+		Registers.A = ~Registers.A;
+
+		Registers.SetNegativeFlag(true);
+		Registers.SetHalfCarryFlag(true);
+
+		return 1;
+	}
+
+	int CPU::DAA()
+	{
+		int adjustment = Registers.GetCarryFlag() ? 0x06 : 0x00;
+
+		if (Registers.GetHalfCarryFlag() || 
+			(Registers.GetNegativeFlag() && (Registers.A & 0x0F) > 9))
+		{
+			adjustment |= 0x06;
+		}
+		if (Registers.GetCarryFlag() ||
+			(!Registers.GetNegativeFlag() && Registers.A > 0x99))
+		{
+			adjustment |= 0x60;
+		}
+
+		if (Registers.GetNegativeFlag())
+		{
+			Registers.A -= adjustment;
+		}
+		else
+		{
+			Registers.A += adjustment;
+		}
+
+		if (((adjustment << 2) & 0x100) != 0)
+		{
+			Registers.SetCarryFlag(true);
+		}
+
+		Registers.SetHalfCarryFlag(false);
+		Registers.SetZeroFlag(Registers.A == 0);
+		
+		return 1;
+	}
+
+	int CPU::NOP()
+	{
+		return 1;
+	}
+
+	int CPU::STOP()
+	{
+		Registers.IME = false;
+		Registers.CancelIMEupdate();
+
+		return 2;
+	}
+
+	int CPU::EI()
+	{
+		Registers.SetIMEnextCycle();
+
+		return 1;
+	}
+
+	int CPU::DI()
+	{
+		Registers.IME = false;
+		Registers.CancelIMEupdate();
+
+		return 1;
+	}
+
 	// 16 bit
 	int CPU::ADD_HL_BC()
 	{

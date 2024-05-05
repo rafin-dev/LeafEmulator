@@ -10,13 +10,20 @@ namespace GameBoyEmulator {
 
 	// CPU constructor
 	CPU::CPU(uint8_t* mem)
-		: Memory(mem), InstructionMap()
+		: Memory(mem), InstructionMap(), PrefixedInstructionMap()
 	{
 		AddInstructionsToMap();
 	}
 
 	void CPU::Step()
 	{
+		if (Halted)
+		{
+			return;
+		}
+
+		Registers.UpdateIME();
+
 		// Gets the firts byte of a Game Boy opcode (the first byte indicate what instruction to execute)
 		uint8_t instructionNibble = Memory[Registers.PC];
 
@@ -28,9 +35,9 @@ namespace GameBoyEmulator {
 		{
 #ifdef DEBUG
 			// If it doens't, throw a exception
-			EMU_LOG_ERROR("CRITICAL ERROR: UNKNOWN INSTRUCTION! STOPING ROM EXECUTION.");
-			SystemManager::CallEmulationErrorMenu();
+			EMU_LOG_ERROR("CRITICAL ERROR: UNKNOWN INSTRUCTION!({}) STOPING ROM EXECUTION.", instructionNibble);
 #endif // DEBUG
+			SystemManager::CallEmulationErrorMenu();
 		}
 
 		// In case logging is on, logs the soon to be executed instruction
@@ -45,6 +52,16 @@ namespace GameBoyEmulator {
 
 		// Increment PC
 		Registers.PC += PCincrementAmount;
+	}
+
+	int CPU::DecodePrefixedOpcode()
+	{
+		uint8_t instructionNibble = Memory[Registers.PC + 1];
+
+		// Don't check for existence since all possible values for a uint8 have a mapped opcode
+		auto mappedInstrcution = PrefixedInstructionMap.find(instructionNibble);
+
+		return mappedInstrcution->second();
 	}
 
 	uint16_t GBRegisters::Combine(uint8_t register1, uint8_t register2)

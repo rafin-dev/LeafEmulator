@@ -617,4 +617,48 @@ namespace GameBoyEmulator {
 		return 1;
 	}
 
+	int CPU::LD_A_MU16()
+	{
+		Registers.A = Memory[GETU16M];
+
+		return 3;
+	}
+
+	int CPU::LD_MU16_A()
+	{
+		Memory[GETU16M] = Registers.A;
+
+		return 1;
+	}
+
+#define GET0xFFU8 Memory[0xFF00 + Memory[Registers.PC + 1]]
+
+	int CPU::LD_A_0xFFU8()
+	{
+		Registers.A = GET0xFFU8;
+
+		return 2;
+	}
+
+	int CPU::LD_0xFFU8_A()
+	{
+		Memory[GET0xFFU8] = Registers.A;
+
+		return 2;
+	}
+
+	int CPU::LD_A_0xFFRC()
+	{
+		Registers.A = Memory[0xFF00 + Registers.C];
+
+		return 1;
+	}
+
+	int CPU::LD_0xFFRC_A()
+	{
+		Memory[0xFF00 + Registers.C] = Registers.A;
+
+		return 1;
+	}
+
 }

@@ -46,8 +46,15 @@ namespace GameBoyEmulator {
 		InstructionMap.insert(MAPPAIR(0x2D, ADDFUNC(DEC_L)));
 		InstructionMap.insert(MAPPAIR(0x3D, ADDFUNC(DEC_A)));
 
+		// Miscelanious instructions
 		InstructionMap.insert(MAPPAIR(0x3F, ADDFUNC(CCF)));
 		InstructionMap.insert(MAPPAIR(0x37, ADDFUNC(SCF)));
+		InstructionMap.insert(MAPPAIR(0x2F, ADDFUNC(CPL)));
+		InstructionMap.insert(MAPPAIR(0x27, ADDFUNC(DAA)));
+		InstructionMap.insert(MAPPAIR(0x00, ADDFUNC(NOP)));
+		InstructionMap.insert(MAPPAIR(0x10, ADDFUNC(STOP)));
+		InstructionMap.insert(MAPPAIR(0xFB, ADDFUNC(EI)));
+		InstructionMap.insert(MAPPAIR(0xF3, ADDFUNC(DI)));
 
 		// ADD Instructions
 
@@ -236,6 +243,12 @@ namespace GameBoyEmulator {
 		InstructionMap.insert(MAPPAIR(0x7D, ADDFUNC(LD_A_L)));
 		InstructionMap.insert(MAPPAIR(0x7E, ADDFUNC(LD_A_MHL)));
 		InstructionMap.insert(MAPPAIR(0x7F, ADDFUNC(LD_A_A)));
+		InstructionMap.insert(MAPPAIR(0xFA, ADDFUNC(LD_A_MU16)));
+		InstructionMap.insert(MAPPAIR(0xEA, ADDFUNC(LD_MU16_A)));
+		InstructionMap.insert(MAPPAIR(0xF0, ADDFUNC(LD_A_0xFFU8)));
+		InstructionMap.insert(MAPPAIR(0xE0, ADDFUNC(LD_0xFFU8_A)));
+		InstructionMap.insert(MAPPAIR(0xF2, ADDFUNC(LD_A_0xFFRC)));
+		InstructionMap.insert(MAPPAIR(0xe0, ADDFUNC(LD_0xFFRC_A)));
 
 		// Flow control instructions
 		InstructionMap.insert(MAPPAIR(0xC3, ADDFUNC(JP_U16)));
@@ -268,6 +281,27 @@ namespace GameBoyEmulator {
 		InstructionMap.insert(MAPPAIR(0xDF, ADDFUNC(RST_0x18)));
 		InstructionMap.insert(MAPPAIR(0xEF, ADDFUNC(RST_0x28)));
 		InstructionMap.insert(MAPPAIR(0xEF, ADDFUNC(RST_0x38)));
+		InstructionMap.insert(MAPPAIR(0x76, ADDFUNC(HALT)));
+
+		// Stack, Push and Pop
+		InstructionMap.insert(MAPPAIR(0xC5, ADDFUNC(PUSH_BC)));
+		InstructionMap.insert(MAPPAIR(0xD5, ADDFUNC(PUSH_DE)));
+		InstructionMap.insert(MAPPAIR(0xE5, ADDFUNC(PUSH_HL)));
+		InstructionMap.insert(MAPPAIR(0xF5, ADDFUNC(PUSH_AF)));
+		InstructionMap.insert(MAPPAIR(0xC1, ADDFUNC(POP_BC)));
+		InstructionMap.insert(MAPPAIR(0xD1, ADDFUNC(POP_DE)));
+		InstructionMap.insert(MAPPAIR(0xE1, ADDFUNC(POP_HL)));
+		InstructionMap.insert(MAPPAIR(0xF1, ADDFUNC(POP_AF)));
+
+		// Bit Shift (not prefixed)
+		InstructionMap.insert(MAPPAIR(0x0F, ADDFUNC(RRCA)));
+		InstructionMap.insert(MAPPAIR(0x1F, ADDFUNC(RRA)));
+		InstructionMap.insert(MAPPAIR(0x07, ADDFUNC(RLCA)));
+		InstructionMap.insert(MAPPAIR(0x17, ADDFUNC(RLA)));
+
+		// Prefixed instructions
+
+		InstructionMap.insert(MAPPAIR(0xCB, ADDFUNC(DecodePrefixedOpcode)));
 	}
 
 }

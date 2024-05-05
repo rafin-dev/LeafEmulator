@@ -34,6 +34,31 @@ namespace GameBoyEmulator {
 		// Interrup Master Enabled
 		bool IME = false;
 
+		void SetIMEnextCycle()
+		{
+			SetIME = true;
+			CycleCounter = 1;
+		}
+
+		void CancelIMEupdate()
+		{
+			SetIME = false;
+			CycleCounter = 0;
+		}
+
+		void UpdateIME()
+		{
+			if (SetIME)
+			{
+				CycleCounter--;
+				if (CycleCounter == 0)
+				{
+					IME = true;
+					SetIME = false;
+				}
+			}
+		}
+
 		// Getters and Setters for the register combinations
 		inline uint16_t GetBC() { return Combine(B, C); }
 		inline void SetBC(uint16_t value) { SetCombination(value, &B, &C); }
@@ -43,6 +68,9 @@ namespace GameBoyEmulator {
 
 		inline uint16_t GetHL() { return Combine(H, L); }
 		inline void SetHL(uint16_t value) { SetCombination(value, &H, &L); }
+
+		inline uint16_t GetAF() { return Combine(A, F); }
+		inline void SetAF(uint16_t value) { SetCombination(value, &A, &F); }
 
 		inline void SetZeroFlag(bool n)
 		{ 
@@ -86,6 +114,9 @@ namespace GameBoyEmulator {
 
 	private:
 
+		int CycleCounter = 0;
+		bool SetIME = false;
+
 		// functions to automate the mixing and separating of the registers, and flag setting
 		uint16_t Combine(uint8_t register1, uint8_t register2);
 
@@ -97,11 +128,11 @@ namespace GameBoyEmulator {
 			// If n is true, do a simple bitmap setting
 			if (n)
 			{
-				F | (1 << flagIndex);
+				F = F | (1 << flagIndex);
 			}
 			else // If not, set the bit to false by left shifting 1 by the bit index, reverting all the bits in the result and ANDING(&) it with the flag register
 			{
-				F & (~(1 << flagIndex));
+				F = F & (~(1 << flagIndex));
 			}
 		}
 
@@ -156,6 +187,11 @@ namespace GameBoyEmulator {
 
 		// Map to instruction functions definitions
 		std::map<uint8_t, InstructionFunc> InstructionMap;
+		std::map<uint8_t, InstructionFunc> PrefixedInstructionMap;
+
+		bool Halted = false;
+
+		int DecodePrefixedOpcode();
 
 		// Instruction functions declarations
 
@@ -195,10 +231,18 @@ namespace GameBoyEmulator {
 		int DEC_L();
 		int DEC_A();
 
-		// Arithimetical Instructions
+		// Miscelanious instructions
 
 		int CCF();
 		int SCF();
+		int CPL();
+		int DAA();
+		int NOP();
+		int STOP();
+		int EI();
+		int DI();
+
+		// Arithimetical Instructions
 
 		// ADD instructions
 
@@ -396,6 +440,12 @@ namespace GameBoyEmulator {
 		int LD_A_L();
 		int LD_A_MHL();
 		int LD_A_A();
+		int LD_A_MU16();
+		int LD_MU16_A();
+		int LD_A_0xFFU8();
+		int LD_0xFFU8_A();
+		int LD_A_0xFFRC();
+		int LD_0xFFRC_A();
 
 		// Flow control instructions
 		int JP_U16();
@@ -428,6 +478,23 @@ namespace GameBoyEmulator {
 		int RST_0x18();
 		int RST_0x28();
 		int RST_0x38();
+		int HALT();
+
+		// Stack, Push and Pop
+		int PUSH_BC();
+		int PUSH_DE();
+		int PUSH_HL();
+		int PUSH_AF();
+		int POP_BC();
+		int POP_DE();
+		int POP_HL();
+		int POP_AF();
+
+		// Bit Shift instructions (not prefixed)
+		int RRCA();
+		int RRA();
+		int RLCA();
+		int RLA();
 
 		CPU()
 		: Memory(nullptr)

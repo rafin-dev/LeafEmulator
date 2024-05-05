@@ -359,5 +359,11 @@ namespace GameBoyEmulator {
 		return 0;
 	}
 
+	int CPU::HALT()
+	{
+		Halted = true;
+
+		return 1;
+	}
 
 }
