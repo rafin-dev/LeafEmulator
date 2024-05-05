@@ -300,7 +300,6 @@ namespace GameBoyEmulator {
 		InstructionMap.insert(MAPPAIR(0x17, ADDFUNC(RLA)));
 
 		// Prefixed instructions
-
 		InstructionMap.insert(MAPPAIR(0xCB, ADDFUNC(DecodePrefixedOpcode)));
 	}
 
