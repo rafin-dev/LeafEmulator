@@ -8,7 +8,7 @@ namespace GameBoyEmulator {
 	class Emulator
 	{
 	public:
-		Emulator(std::string& ROMpath);
+		Emulator();
 		~Emulator();
 
 		bool LoadROM();
@@ -17,7 +17,7 @@ namespace GameBoyEmulator {
 
 	private:
 
-		uint8_t* GBMemory;
+		uint8_t GBMemory[0xFFFF];
 
 		CPU processor;
 	};

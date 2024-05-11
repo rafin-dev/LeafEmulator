@@ -10,6 +10,8 @@
 #include "GUIsystem/menus/StartMenu.h"
 #include "GUIsystem/MenuManager.h"
 
+#include "system/Emulator.h"
+
 
 namespace GameBoyEmulator {
 
@@ -23,6 +25,8 @@ namespace GameBoyEmulator {
 		void Run(std::string filepath);
 
 	private:
+
+		Emulator GBemulator;
 
 		bool LoadROM(std::string& filePath);
 		void CallEmuErrorMenu();

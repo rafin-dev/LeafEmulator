@@ -10,9 +10,15 @@ namespace GameBoyEmulator {
 
 	// CPU constructor
 	CPU::CPU(uint8_t* mem)
-		: Memory(mem), InstructionMap(), PrefixedInstructionMap()
+		: Memory(mem)
 	{
 		AddInstructionsToMap();
+	}
+
+	CPU::~CPU()
+	{
+		InstructionMap.clear();
+		PrefixedInstructionMap.clear();
 	}
 
 	void CPU::Step()

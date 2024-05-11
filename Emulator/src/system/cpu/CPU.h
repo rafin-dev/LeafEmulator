@@ -2,6 +2,7 @@
 
 #include <string>
 #include <map>
+#include <unordered_map>
 #include <functional>
 
 using InstructionFunc = std::function<int(void)>;
@@ -149,6 +150,8 @@ namespace GameBoyEmulator {
 
 		CPU(uint8_t* mem);
 
+		~CPU();
+
 		void Step();
 
 	private:
@@ -178,6 +181,18 @@ namespace GameBoyEmulator {
 		void PushIntoStack(uint16_t value);
 		uint16_t PopFromStack();
 
+		// Helper functions for bit shifitng instructions
+		void RLC8bitRegister(uint8_t* reg);
+		void RRC8bitRegister(uint8_t* reg);
+		void RL8bitRegister(uint8_t* reg);
+		void RR8bitRegister(uint8_t* reg);
+		void SLA8bitRegister(uint8_t* reg);
+		void SRA8bitRegister(uint8_t* reg);
+		void SWAP8bitRegister(uint8_t* reg);
+		void SRL8bitRegister(uint8_t* reg);
+
+		// Helper functions for the BIT instructions
+		void BIT_u3_8bitRegister(uint8_t u3, uint8_t* reg);
 
 		// Pointer to the memory (other objects such as the PPU will utilize the same memory)
 		uint8_t* Memory;
@@ -186,8 +201,8 @@ namespace GameBoyEmulator {
 		GBRegisters Registers;
 
 		// Map to instruction functions definitions
-		std::map<uint8_t, InstructionFunc> InstructionMap;
-		std::map<uint8_t, InstructionFunc> PrefixedInstructionMap;
+		std::unordered_map<uint8_t, InstructionFunc> InstructionMap;
+		std::unordered_map<uint8_t, InstructionFunc> PrefixedInstructionMap;
 
 		bool Halted = false;
 
@@ -495,6 +510,155 @@ namespace GameBoyEmulator {
 		int RRA();
 		int RLCA();
 		int RLA();
+
+		// Prefixed instructions
+
+		// Bit Shift instructions
+		int RLC_B();
+		int RLC_C();
+		int RLC_D();
+		int RLC_E();
+		int RLC_H();
+		int RLC_L();
+		int RLC_MHL();
+		int RLC_A();
+
+		int RRC_B();
+		int RRC_C();
+		int RRC_D();
+		int RRC_E();
+		int RRC_H();
+		int RRC_L();
+		int RRC_MHL();
+		int RRC_A();
+
+		int RL_B();
+		int RL_C();
+		int RL_D();
+		int RL_E();
+		int RL_H();
+		int RL_L();
+		int RL_MHL();
+		int RL_A();
+
+		int RR_B();
+		int RR_C();
+		int RR_D();
+		int RR_E();
+		int RR_H();
+		int RR_L();
+		int RR_MHL();
+		int RR_A();
+
+		int SLA_B();
+		int SLA_C();
+		int SLA_D();
+		int SLA_E();
+		int SLA_H();
+		int SLA_L();
+		int SLA_MHL();
+		int SLA_A();
+
+		int SRA_B();
+		int SRA_C();
+		int SRA_D();
+		int SRA_E();
+		int SRA_H();
+		int SRA_L();
+		int SRA_MHL();
+		int SRA_A();
+
+		int SWAP_B();
+		int SWAP_C();
+		int SWAP_D();
+		int SWAP_E();
+		int SWAP_H();
+		int SWAP_L();
+		int SWAP_MHL();
+		int SWAP_A();
+
+		int SRL_B();
+		int SRL_C();
+		int SRL_D();
+		int SRL_E();
+		int SRL_H();
+		int SRL_L();
+		int SRL_MHL();
+		int SRL_A();
+
+		// BIT instructions
+
+		int BIT_0_B();
+		int BIT_0_C();
+		int BIT_0_D();
+		int BIT_0_E();
+		int BIT_0_H();
+		int BIT_0_L();
+		int BIT_0_MHL();
+		int BIT_0_A();
+
+		int BIT_1_B();
+		int BIT_1_C();
+		int BIT_1_D();
+		int BIT_1_E();
+		int BIT_1_H();
+		int BIT_1_L();
+		int BIT_1_MHL();
+		int BIT_1_A();
+
+		int BIT_2_B();
+		int BIT_2_C();
+		int BIT_2_D();
+		int BIT_2_E();
+		int BIT_2_H();
+		int BIT_2_L();
+		int BIT_2_MHL();
+		int BIT_2_A();
+
+		int BIT_3_B();
+		int BIT_3_C();
+		int BIT_3_D();
+		int BIT_3_E();
+		int BIT_3_H();
+		int BIT_3_L();
+		int BIT_3_MHL();
+		int BIT_3_A();
+
+		int BIT_4_B();
+		int BIT_4_C();
+		int BIT_4_D();
+		int BIT_4_E();
+		int BIT_4_H();
+		int BIT_4_L();
+		int BIT_4_MHL();
+		int BIT_4_A();
+
+		int BIT_5_B();
+		int BIT_5_C();
+		int BIT_5_D();
+		int BIT_5_E();
+		int BIT_5_H();
+		int BIT_5_L();
+		int BIT_5_MHL();
+		int BIT_5_A();
+
+		int BIT_6_B();
+		int BIT_6_C();
+		int BIT_6_D();
+		int BIT_6_E();
+		int BIT_6_H();
+		int BIT_6_L();
+		int BIT_6_MHL();
+		int BIT_6_A();
+
+		int BIT_7_B();
+		int BIT_7_C();
+		int BIT_7_D();
+		int BIT_7_E();
+		int BIT_7_H();
+		int BIT_7_L();
+		int BIT_7_MHL();
+		int BIT_7_A();
 
 		CPU()
 		: Memory(nullptr)
