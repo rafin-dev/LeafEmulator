@@ -194,6 +194,10 @@ namespace GameBoyEmulator {
 		// Helper functions for the BIT instructions
 		void BIT_u3_8bitRegister(uint8_t u3, uint8_t* reg);
 
+		// Helper functions for the RES and SET instructions
+		void RES_u3_8bitRegister(uint8_t u3, uint8_t* reg);
+		void SET_u3_8bitRegister(uint8_t u3, uint8_t* reg);
+
 		// Pointer to the memory (other objects such as the PPU will utilize the same memory)
 		uint8_t* Memory;
 
@@ -659,6 +663,154 @@ namespace GameBoyEmulator {
 		int BIT_7_L();
 		int BIT_7_MHL();
 		int BIT_7_A();
+
+		// RES instructions
+
+		int RES_0_B();
+		int RES_0_C();
+		int RES_0_D();
+		int RES_0_E();
+		int RES_0_H();
+		int RES_0_L();
+		int RES_0_MHL();
+		int RES_0_A();
+
+		int RES_1_B();
+		int RES_1_C();
+		int RES_1_D();
+		int RES_1_E();
+		int RES_1_H();
+		int RES_1_L();
+		int RES_1_MHL();
+		int RES_1_A();
+
+		int RES_2_B();
+		int RES_2_C();
+		int RES_2_D();
+		int RES_2_E();
+		int RES_2_H();
+		int RES_2_L();
+		int RES_2_MHL();
+		int RES_2_A();
+
+		int RES_3_B();
+		int RES_3_C();
+		int RES_3_D();
+		int RES_3_E();
+		int RES_3_H();
+		int RES_3_L();
+		int RES_3_MHL();
+		int RES_3_A();
+
+		int RES_4_B();
+		int RES_4_C();
+		int RES_4_D();
+		int RES_4_E();
+		int RES_4_H();
+		int RES_4_L();
+		int RES_4_MHL();
+		int RES_4_A();
+
+		int RES_5_B();
+		int RES_5_C();
+		int RES_5_D();
+		int RES_5_E();
+		int RES_5_H();
+		int RES_5_L();
+		int RES_5_MHL();
+		int RES_5_A();
+
+		int RES_6_B();
+		int RES_6_C();
+		int RES_6_D();
+		int RES_6_E();
+		int RES_6_H();
+		int RES_6_L();
+		int RES_6_MHL();
+		int RES_6_A();
+
+		int RES_7_B();
+		int RES_7_C();
+		int RES_7_D();
+		int RES_7_E();
+		int RES_7_H();
+		int RES_7_L();
+		int RES_7_MHL();
+		int RES_7_A();
+
+		// SET instructions
+
+		int SET_0_B();
+		int SET_0_C();
+		int SET_0_D();
+		int SET_0_E();
+		int SET_0_H();
+		int SET_0_L();
+		int SET_0_MHL();
+		int SET_0_A();
+
+		int SET_1_B();
+		int SET_1_C();
+		int SET_1_D();
+		int SET_1_E();
+		int SET_1_H();
+		int SET_1_L();
+		int SET_1_MHL();
+		int SET_1_A();
+
+		int SET_2_B();
+		int SET_2_C();
+		int SET_2_D();
+		int SET_2_E();
+		int SET_2_H();
+		int SET_2_L();
+		int SET_2_MHL();
+		int SET_2_A();
+
+		int SET_3_B();
+		int SET_3_C();
+		int SET_3_D();
+		int SET_3_E();
+		int SET_3_H();
+		int SET_3_L();
+		int SET_3_MHL();
+		int SET_3_A();
+
+		int SET_4_B();
+		int SET_4_C();
+		int SET_4_D();
+		int SET_4_E();
+		int SET_4_H();
+		int SET_4_L();
+		int SET_4_MHL();
+		int SET_4_A();
+
+		int SET_5_B();
+		int SET_5_C();
+		int SET_5_D();
+		int SET_5_E();
+		int SET_5_H();
+		int SET_5_L();
+		int SET_5_MHL();
+		int SET_5_A();
+
+		int SET_6_B();
+		int SET_6_C();
+		int SET_6_D();
+		int SET_6_E();
+		int SET_6_H();
+		int SET_6_L();
+		int SET_6_MHL();
+		int SET_6_A();
+
+		int SET_7_B();
+		int SET_7_C();
+		int SET_7_D();
+		int SET_7_E();
+		int SET_7_H();
+		int SET_7_L();
+		int SET_7_MHL();
+		int SET_7_A();
 
 		CPU()
 		: Memory(nullptr)

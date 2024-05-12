@@ -13,6 +13,8 @@ namespace GameBoyEmulator {
 		Registers.SetHalfCarryFlag(true);
 	}
 
+	// INstruction definitions
+
 	int GameBoyEmulator::CPU::BIT_0_B()
 	{
 		BIT_u3_8bitRegister(0, &Registers.B);

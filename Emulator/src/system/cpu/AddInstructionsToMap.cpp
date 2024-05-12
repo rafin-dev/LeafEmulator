@@ -448,6 +448,155 @@ namespace GameBoyEmulator {
 		PrefixedInstructionMap.insert(MAPPAIR(0x7D, ADDFUNC(BIT_7_L)));
 		PrefixedInstructionMap.insert(MAPPAIR(0x7E, ADDFUNC(BIT_7_MHL)));
 		PrefixedInstructionMap.insert(MAPPAIR(0x7F, ADDFUNC(BIT_7_A)));
+
+		// RES instructions
+
+		PrefixedInstructionMap.insert(MAPPAIR(0x80, ADDFUNC(RES_0_B)));
+		PrefixedInstructionMap.insert(MAPPAIR(0x81, ADDFUNC(RES_0_C)));
+		PrefixedInstructionMap.insert(MAPPAIR(0x82, ADDFUNC(RES_0_D)));
+		PrefixedInstructionMap.insert(MAPPAIR(0x83, ADDFUNC(RES_0_E)));
+		PrefixedInstructionMap.insert(MAPPAIR(0x84, ADDFUNC(RES_0_H)));
+		PrefixedInstructionMap.insert(MAPPAIR(0x85, ADDFUNC(RES_0_L)));
+		PrefixedInstructionMap.insert(MAPPAIR(0x86, ADDFUNC(RES_0_MHL)));
+		PrefixedInstructionMap.insert(MAPPAIR(0x87, ADDFUNC(RES_0_A)));
+
+		PrefixedInstructionMap.insert(MAPPAIR(0x88, ADDFUNC(RES_1_B)));
+		PrefixedInstructionMap.insert(MAPPAIR(0x89, ADDFUNC(RES_1_C)));
+		PrefixedInstructionMap.insert(MAPPAIR(0x8A, ADDFUNC(RES_1_D)));
+		PrefixedInstructionMap.insert(MAPPAIR(0x8B, ADDFUNC(RES_1_E)));
+		PrefixedInstructionMap.insert(MAPPAIR(0x8C, ADDFUNC(RES_1_H)));
+		PrefixedInstructionMap.insert(MAPPAIR(0x8D, ADDFUNC(RES_1_L)));
+		PrefixedInstructionMap.insert(MAPPAIR(0x8E, ADDFUNC(RES_1_MHL)));
+		PrefixedInstructionMap.insert(MAPPAIR(0x8F, ADDFUNC(RES_1_A)));
+
+		PrefixedInstructionMap.insert(MAPPAIR(0x90, ADDFUNC(RES_2_B)));
+		PrefixedInstructionMap.insert(MAPPAIR(0x91, ADDFUNC(RES_2_C)));
+		PrefixedInstructionMap.insert(MAPPAIR(0x92, ADDFUNC(RES_2_D)));
+		PrefixedInstructionMap.insert(MAPPAIR(0x93, ADDFUNC(RES_2_E)));
+		PrefixedInstructionMap.insert(MAPPAIR(0x94, ADDFUNC(RES_2_H)));
+		PrefixedInstructionMap.insert(MAPPAIR(0x95, ADDFUNC(RES_2_L)));
+		PrefixedInstructionMap.insert(MAPPAIR(0x96, ADDFUNC(RES_2_MHL)));
+		PrefixedInstructionMap.insert(MAPPAIR(0x97, ADDFUNC(RES_2_A)));
+
+		PrefixedInstructionMap.insert(MAPPAIR(0x98, ADDFUNC(RES_3_B)));
+		PrefixedInstructionMap.insert(MAPPAIR(0x99, ADDFUNC(RES_3_C)));
+		PrefixedInstructionMap.insert(MAPPAIR(0x9A, ADDFUNC(RES_3_D)));
+		PrefixedInstructionMap.insert(MAPPAIR(0x9B, ADDFUNC(RES_3_E)));
+		PrefixedInstructionMap.insert(MAPPAIR(0x9C, ADDFUNC(RES_3_H)));
+		PrefixedInstructionMap.insert(MAPPAIR(0x9D, ADDFUNC(RES_3_L)));
+		PrefixedInstructionMap.insert(MAPPAIR(0x9E, ADDFUNC(RES_3_MHL)));
+		PrefixedInstructionMap.insert(MAPPAIR(0x9F, ADDFUNC(RES_3_A)));
+
+		PrefixedInstructionMap.insert(MAPPAIR(0xA0, ADDFUNC(RES_4_B)));
+		PrefixedInstructionMap.insert(MAPPAIR(0xA1, ADDFUNC(RES_4_C)));
+		PrefixedInstructionMap.insert(MAPPAIR(0xA2, ADDFUNC(RES_4_D)));
+		PrefixedInstructionMap.insert(MAPPAIR(0xA3, ADDFUNC(RES_4_E)));
+		PrefixedInstructionMap.insert(MAPPAIR(0xA4, ADDFUNC(RES_4_H)));
+		PrefixedInstructionMap.insert(MAPPAIR(0xA5, ADDFUNC(RES_4_L)));
+		PrefixedInstructionMap.insert(MAPPAIR(0xA6, ADDFUNC(RES_4_MHL)));
+		PrefixedInstructionMap.insert(MAPPAIR(0xA7, ADDFUNC(RES_4_A)));
+
+		PrefixedInstructionMap.insert(MAPPAIR(0xA8, ADDFUNC(RES_5_B)));
+		PrefixedInstructionMap.insert(MAPPAIR(0xA9, ADDFUNC(RES_5_C)));
+		PrefixedInstructionMap.insert(MAPPAIR(0xAA, ADDFUNC(RES_5_D)));
+		PrefixedInstructionMap.insert(MAPPAIR(0xAB, ADDFUNC(RES_5_E)));
+		PrefixedInstructionMap.insert(MAPPAIR(0xAC, ADDFUNC(RES_5_H)));
+		PrefixedInstructionMap.insert(MAPPAIR(0xAD, ADDFUNC(RES_5_L)));
+		PrefixedInstructionMap.insert(MAPPAIR(0xAE, ADDFUNC(RES_5_MHL)));
+		PrefixedInstructionMap.insert(MAPPAIR(0xAF, ADDFUNC(RES_5_A)));
+
+		PrefixedInstructionMap.insert(MAPPAIR(0xB0, ADDFUNC(RES_6_B)));
+		PrefixedInstructionMap.insert(MAPPAIR(0xB1, ADDFUNC(RES_6_C)));
+		PrefixedInstructionMap.insert(MAPPAIR(0xB2, ADDFUNC(RES_6_D)));
+		PrefixedInstructionMap.insert(MAPPAIR(0xB3, ADDFUNC(RES_6_E)));
+		PrefixedInstructionMap.insert(MAPPAIR(0xB4, ADDFUNC(RES_6_H)));
+		PrefixedInstructionMap.insert(MAPPAIR(0xB5, ADDFUNC(RES_6_L)));
+		PrefixedInstructionMap.insert(MAPPAIR(0xB6, ADDFUNC(RES_6_MHL)));
+		PrefixedInstructionMap.insert(MAPPAIR(0xB7, ADDFUNC(RES_6_A)));
+
+		PrefixedInstructionMap.insert(MAPPAIR(0xB8, ADDFUNC(RES_7_B)));
+		PrefixedInstructionMap.insert(MAPPAIR(0xB9, ADDFUNC(RES_7_C)));
+		PrefixedInstructionMap.insert(MAPPAIR(0xBA, ADDFUNC(RES_7_D)));
+		PrefixedInstructionMap.insert(MAPPAIR(0xBB, ADDFUNC(RES_7_E)));
+		PrefixedInstructionMap.insert(MAPPAIR(0xBC, ADDFUNC(RES_7_H)));
+		PrefixedInstructionMap.insert(MAPPAIR(0xBD, ADDFUNC(RES_7_L)));
+		PrefixedInstructionMap.insert(MAPPAIR(0xBE, ADDFUNC(RES_7_MHL)));
+		PrefixedInstructionMap.insert(MAPPAIR(0xBF, ADDFUNC(RES_7_A)));
+
+		// SET instructions
+
+		PrefixedInstructionMap.insert(MAPPAIR(0xC0, ADDFUNC(SET_0_B)));
+		PrefixedInstructionMap.insert(MAPPAIR(0xC1, ADDFUNC(SET_0_C)));
+		PrefixedInstructionMap.insert(MAPPAIR(0xC2, ADDFUNC(SET_0_D)));
+		PrefixedInstructionMap.insert(MAPPAIR(0xC3, ADDFUNC(SET_0_E)));
+		PrefixedInstructionMap.insert(MAPPAIR(0xC4, ADDFUNC(SET_0_H)));
+		PrefixedInstructionMap.insert(MAPPAIR(0xC5, ADDFUNC(SET_0_L)));
+		PrefixedInstructionMap.insert(MAPPAIR(0xC6, ADDFUNC(SET_0_MHL)));
+		PrefixedInstructionMap.insert(MAPPAIR(0xC7, ADDFUNC(SET_0_A)));
+
+		PrefixedInstructionMap.insert(MAPPAIR(0xC8, ADDFUNC(SET_1_B)));
+		PrefixedInstructionMap.insert(MAPPAIR(0xC9, ADDFUNC(SET_1_C)));
+		PrefixedInstructionMap.insert(MAPPAIR(0xCA, ADDFUNC(SET_1_D)));
+		PrefixedInstructionMap.insert(MAPPAIR(0xCB, ADDFUNC(SET_1_E)));
+		PrefixedInstructionMap.insert(MAPPAIR(0xCC, ADDFUNC(SET_1_H)));
+		PrefixedInstructionMap.insert(MAPPAIR(0xCD, ADDFUNC(SET_1_L)));
+		PrefixedInstructionMap.insert(MAPPAIR(0xCE, ADDFUNC(SET_1_MHL)));
+		PrefixedInstructionMap.insert(MAPPAIR(0xCF, ADDFUNC(SET_1_A)));
+
+		PrefixedInstructionMap.insert(MAPPAIR(0xD0, ADDFUNC(SET_2_B)));
+		PrefixedInstructionMap.insert(MAPPAIR(0xD1, ADDFUNC(SET_2_C)));
+		PrefixedInstructionMap.insert(MAPPAIR(0xD2, ADDFUNC(SET_2_D)));
+		PrefixedInstructionMap.insert(MAPPAIR(0xD3, ADDFUNC(SET_2_E)));
+		PrefixedInstructionMap.insert(MAPPAIR(0xD4, ADDFUNC(SET_2_H)));
+		PrefixedInstructionMap.insert(MAPPAIR(0xD5, ADDFUNC(SET_2_L)));
+		PrefixedInstructionMap.insert(MAPPAIR(0xD6, ADDFUNC(SET_2_MHL)));
+		PrefixedInstructionMap.insert(MAPPAIR(0xD7, ADDFUNC(SET_2_A)));
+
+		PrefixedInstructionMap.insert(MAPPAIR(0xD8, ADDFUNC(SET_3_B)));
+		PrefixedInstructionMap.insert(MAPPAIR(0xD9, ADDFUNC(SET_3_C)));
+		PrefixedInstructionMap.insert(MAPPAIR(0xDA, ADDFUNC(SET_3_D)));
+		PrefixedInstructionMap.insert(MAPPAIR(0xDB, ADDFUNC(SET_3_E)));
+		PrefixedInstructionMap.insert(MAPPAIR(0xDC, ADDFUNC(SET_3_H)));
+		PrefixedInstructionMap.insert(MAPPAIR(0xDD, ADDFUNC(SET_3_L)));
+		PrefixedInstructionMap.insert(MAPPAIR(0xDE, ADDFUNC(SET_3_MHL)));
+		PrefixedInstructionMap.insert(MAPPAIR(0xDF, ADDFUNC(SET_3_A)));
+
+		PrefixedInstructionMap.insert(MAPPAIR(0xE0, ADDFUNC(SET_4_B)));
+		PrefixedInstructionMap.insert(MAPPAIR(0xE1, ADDFUNC(SET_4_C)));
+		PrefixedInstructionMap.insert(MAPPAIR(0xE2, ADDFUNC(SET_4_D)));
+		PrefixedInstructionMap.insert(MAPPAIR(0xE3, ADDFUNC(SET_4_E)));
+		PrefixedInstructionMap.insert(MAPPAIR(0xE4, ADDFUNC(SET_4_H)));
+		PrefixedInstructionMap.insert(MAPPAIR(0xE5, ADDFUNC(SET_4_L)));
+		PrefixedInstructionMap.insert(MAPPAIR(0xE6, ADDFUNC(SET_4_MHL)));
+		PrefixedInstructionMap.insert(MAPPAIR(0xE7, ADDFUNC(SET_4_A)));
+
+		PrefixedInstructionMap.insert(MAPPAIR(0xE8, ADDFUNC(SET_5_B)));
+		PrefixedInstructionMap.insert(MAPPAIR(0xE9, ADDFUNC(SET_5_C)));
+		PrefixedInstructionMap.insert(MAPPAIR(0xEA, ADDFUNC(SET_5_D)));
+		PrefixedInstructionMap.insert(MAPPAIR(0xEB, ADDFUNC(SET_5_E)));
+		PrefixedInstructionMap.insert(MAPPAIR(0xEC, ADDFUNC(SET_5_H)));
+		PrefixedInstructionMap.insert(MAPPAIR(0xED, ADDFUNC(SET_5_L)));
+		PrefixedInstructionMap.insert(MAPPAIR(0xEE, ADDFUNC(SET_5_MHL)));
+		PrefixedInstructionMap.insert(MAPPAIR(0xEF, ADDFUNC(SET_5_A)));
+
+		PrefixedInstructionMap.insert(MAPPAIR(0xF0, ADDFUNC(SET_6_B)));
+		PrefixedInstructionMap.insert(MAPPAIR(0xF1, ADDFUNC(SET_6_C)));
+		PrefixedInstructionMap.insert(MAPPAIR(0xF2, ADDFUNC(SET_6_D)));
+		PrefixedInstructionMap.insert(MAPPAIR(0xF3, ADDFUNC(SET_6_E)));
+		PrefixedInstructionMap.insert(MAPPAIR(0xF4, ADDFUNC(SET_6_H)));
+		PrefixedInstructionMap.insert(MAPPAIR(0xF5, ADDFUNC(SET_6_L)));
+		PrefixedInstructionMap.insert(MAPPAIR(0xF6, ADDFUNC(SET_6_MHL)));
+		PrefixedInstructionMap.insert(MAPPAIR(0xF7, ADDFUNC(SET_6_A)));
+
+		PrefixedInstructionMap.insert(MAPPAIR(0xF8, ADDFUNC(SET_7_B)));
+		PrefixedInstructionMap.insert(MAPPAIR(0xF9, ADDFUNC(SET_7_C)));
+		PrefixedInstructionMap.insert(MAPPAIR(0xFA, ADDFUNC(SET_7_D)));
+		PrefixedInstructionMap.insert(MAPPAIR(0xFB, ADDFUNC(SET_7_E)));
+		PrefixedInstructionMap.insert(MAPPAIR(0xFC, ADDFUNC(SET_7_H)));
+		PrefixedInstructionMap.insert(MAPPAIR(0xFD, ADDFUNC(SET_7_L)));
+		PrefixedInstructionMap.insert(MAPPAIR(0xFE, ADDFUNC(SET_7_MHL)));
+		PrefixedInstructionMap.insert(MAPPAIR(0xFF, ADDFUNC(SET_7_A)));
+
 	}
 
 }
