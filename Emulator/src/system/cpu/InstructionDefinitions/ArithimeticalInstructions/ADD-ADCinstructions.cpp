@@ -157,7 +157,8 @@ namespace GameBoyEmulator {
 
 	int CPU::ADD_SP_I8()
 	{
-		int8_t* n = (int8_t*)&Memory[Registers.PC + 1];
+		uint8_t v = Memory.ReadData(Registers.PC + 1);
+		int8_t* n = (int8_t*)v;
 		int Result = Registers.SP + *n;
 
 		Registers.SetZeroFlag(false);
@@ -213,7 +214,7 @@ namespace GameBoyEmulator {
 
 	int CPU::ADD_A_MHL()
 	{
-		ADDtoA(Memory[Registers.GetHL()]);
+		ADDtoA(Memory.ReadData(Registers.GetHL()));
 
 		return 1;
 	}
@@ -227,7 +228,7 @@ namespace GameBoyEmulator {
 
 	int CPU::ADD_A_U8()
 	{
-		ADDtoA(Memory[Registers.PC + 1]);
+		ADDtoA(Memory.ReadData(Registers.PC + 1));
 
 		return 2;
 	}
@@ -277,7 +278,7 @@ namespace GameBoyEmulator {
 
 	int CPU::ADC_A_MHL()
 	{
-		ADDtoA(Memory[Registers.GetHL()] + Registers.GetCarryFlag());
+		ADDtoA(Memory.ReadData(Registers.GetHL()) + Registers.GetCarryFlag());
 
 		return 1;
 	}
@@ -291,7 +292,7 @@ namespace GameBoyEmulator {
 
 	int CPU::ADC_A_U8()
 	{
-		ADDtoA(Memory[Registers.PC + 1] + Registers.GetCarryFlag());
+		ADDtoA(Memory.ReadData(Registers.PC + 1) + Registers.GetCarryFlag());
 
 		return 2;
 	}

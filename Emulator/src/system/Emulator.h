@@ -3,6 +3,8 @@
 #include "cpu/CPU.h"
 #include "string"
 
+#include "system/Memory/GameBoyMemory.h"
+
 namespace GameBoyEmulator {
 
 	class Emulator
@@ -17,7 +19,7 @@ namespace GameBoyEmulator {
 
 	private:
 
-		uint8_t GBMemory[0xFFFF];
+		GameBoyMemory GBMemory;
 
 		CPU processor;
 	};

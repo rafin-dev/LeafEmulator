@@ -3,9 +3,9 @@
 namespace GameBoyEmulator {
 
 	Emulator::Emulator()
-		: processor(GBMemory)
+		: processor(&GBMemory)
 	{
-		memset(GBMemory, 0, sizeof(GBMemory));
+		
 	}
 
 	Emulator::~Emulator()

@@ -48,7 +48,7 @@ namespace GameBoyEmulator {
 
 	int CPU::CP_A_MHL()
 	{
-		SetSubInstructionsFlags(Memory[Registers.GetHL()]);
+		SetSubInstructionsFlags(Memory.ReadData(Registers.GetHL()));
 
 		return 1;
 	}
@@ -62,7 +62,7 @@ namespace GameBoyEmulator {
 
 	int CPU::CP_A_U8()
 	{
-		SetSubInstructionsFlags(Memory[Registers.PC + 1]);
+		SetSubInstructionsFlags(Memory.ReadData(Registers.PC + 1));
 
 		return 2;
 	}

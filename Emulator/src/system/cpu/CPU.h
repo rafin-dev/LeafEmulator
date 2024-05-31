@@ -5,6 +5,8 @@
 #include <unordered_map>
 #include <functional>
 
+#include "system/Memory/GameBoyMemory.h"
+
 using InstructionFunc = std::function<int(void)>;
 
 namespace GameBoyEmulator {
@@ -148,7 +150,7 @@ namespace GameBoyEmulator {
 	{
 	public:
 
-		CPU(uint8_t* mem);
+		CPU(GameBoyMemory* mem);
 
 		~CPU();
 
@@ -182,24 +184,24 @@ namespace GameBoyEmulator {
 		uint16_t PopFromStack();
 
 		// Helper functions for bit shifitng instructions
-		void RLC8bitRegister(uint8_t* reg);
-		void RRC8bitRegister(uint8_t* reg);
-		void RL8bitRegister(uint8_t* reg);
-		void RR8bitRegister(uint8_t* reg);
-		void SLA8bitRegister(uint8_t* reg);
-		void SRA8bitRegister(uint8_t* reg);
-		void SWAP8bitRegister(uint8_t* reg);
-		void SRL8bitRegister(uint8_t* reg);
+		uint8_t RLC8bitRegister(uint8_t reg);
+		uint8_t RRC8bitRegister(uint8_t reg);
+		uint8_t RL8bitRegister(uint8_t reg);
+		uint8_t RR8bitRegister(uint8_t reg);
+		uint8_t SLA8bitRegister(uint8_t reg);
+		uint8_t SRA8bitRegister(uint8_t reg);
+		uint8_t SWAP8bitRegister(uint8_t reg);
+		uint8_t SRL8bitRegister(uint8_t reg);
 
 		// Helper functions for the BIT instructions
-		void BIT_u3_8bitRegister(uint8_t u3, uint8_t* reg);
+		void BIT_u3_8bitRegister(uint8_t u3, uint8_t reg);
 
 		// Helper functions for the RES and SET instructions
-		void RES_u3_8bitRegister(uint8_t u3, uint8_t* reg);
-		void SET_u3_8bitRegister(uint8_t u3, uint8_t* reg);
+		uint8_t RES_u3_8bitRegister(uint8_t u3, uint8_t reg);
+		uint8_t SET_u3_8bitRegister(uint8_t u3, uint8_t reg);
 
 		// Pointer to the memory (other objects such as the PPU will utilize the same memory)
-		uint8_t* Memory;
+		GameBoyMemory& Memory;
 
 		// CPU registers
 		GBRegisters Registers;
@@ -811,13 +813,8 @@ namespace GameBoyEmulator {
 		int SET_7_L();
 		int SET_7_MHL();
 		int SET_7_A();
-
-		CPU()
-		: Memory(nullptr)
-		{
-		}
 	};
 }
 
 // Defines used by multiple instruction sets to simplify the code
-#define GETU16M (Memory[Registers.PC + 1] << 8) | Memory[Registers.PC + 2]
+#define GETU16M (Memory.ReadData(Registers.PC + 1) << 8) | Memory.ReadData(Registers.PC + 2)

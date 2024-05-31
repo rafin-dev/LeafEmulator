@@ -9,8 +9,8 @@
 namespace GameBoyEmulator {
 
 	// CPU constructor
-	CPU::CPU(uint8_t* mem)
-		: Memory(mem)
+	CPU::CPU(GameBoyMemory* mem)
+		: Memory(*mem)
 	{
 		AddInstructionsToMap();
 	}
@@ -31,7 +31,7 @@ namespace GameBoyEmulator {
 		Registers.UpdateIME();
 
 		// Gets the firts byte of a Game Boy opcode (the first byte indicate what instruction to execute)
-		uint8_t instructionNibble = Memory[Registers.PC];
+		uint8_t instructionNibble = Memory.ReadData(Registers.PC);
 
 		// Search for the function of the instruction in the Instructions map
 		auto mappedInstruction = InstructionMap.find(instructionNibble);
@@ -49,7 +49,7 @@ namespace GameBoyEmulator {
 		// In case logging is on, logs the soon to be executed instruction
 #ifdef LOG_ON
 		std::stringstream stream;
-		stream << "0x" << std::hex << Memory[Registers.PC];
+		stream << "0x" << std::hex << Memory.ReadData(Registers.PC);
 		EMU_LOG_TRACE("Executing instruction: {}", stream.str());
 #endif
 
@@ -62,7 +62,7 @@ namespace GameBoyEmulator {
 
 	int CPU::DecodePrefixedOpcode()
 	{
-		uint8_t instructionNibble = Memory[Registers.PC + 1];
+		uint8_t instructionNibble = Memory.ReadData(Registers.PC + 1);
 
 		// Don't check for existence since all possible values for a uint8 have a mapped opcode
 		auto mappedInstrcution = PrefixedInstructionMap.find(instructionNibble);
@@ -84,16 +84,16 @@ namespace GameBoyEmulator {
 	void CPU::PushIntoStack(uint16_t value)
 	{
 		Registers.SP -= 1;
-		Memory[Registers.SP] = value >> 8;
+		Memory.WriteData( value >> 8, Registers.SP);
 		Registers.SP -= 1;
-		Memory[Registers.SP] = value & 0x00FF;
+		Memory.WriteData(value & 0x00FF, Registers.SP);
 	}
 
 	uint16_t CPU::PopFromStack()
 	{
-		uint8_t lsb = Memory[Registers.SP];
+		uint8_t lsb = Memory.ReadData(Registers.SP);
 		Registers.SP += 1;
-		uint8_t msb = Memory[Registers.SP];
+		uint8_t msb = Memory.ReadData(Registers.SP);
 		Registers.SP += 1;
 
 		return (msb << 8) | lsb;

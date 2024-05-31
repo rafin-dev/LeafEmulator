@@ -4,135 +4,151 @@ namespace GameBoyEmulator {
 
 	// Helper functions
 
-	void CPU::RLC8bitRegister(uint8_t* reg)
+	uint8_t CPU::RLC8bitRegister(uint8_t reg)
 	{
-		bool bit = (*reg) >> 7;
-		*reg = (*reg) << 1;
+		bool bit = reg >> 7;
+		reg = reg << 1;
 
 		if (bit)
 		{
-			*reg = (*reg) | 1;
+			reg = reg | 1;
 		}
 		else
 		{
-			*reg = (*reg) & (~1);
+			reg = reg & (~1);
 		}
 
 		Registers.SetZeroFlag(false);
 		Registers.SetNegativeFlag(false);
 		Registers.SetHalfCarryFlag(false);
 		Registers.SetCarryFlag(bit);
+		
+		return reg;
 	}
 
-	void CPU::RRC8bitRegister(uint8_t* reg)
+	uint8_t CPU::RRC8bitRegister(uint8_t reg)
 	{
-		bool bit = (*reg) & 1;
-		*reg = (*reg) >> 1;
+		bool bit = reg & 1;
+		reg = reg >> 1;
 
 		if (bit)
 		{
-			*reg = (*reg) | (1 << 7);
+			reg = reg | (1 << 7);
 		}
 		else
 		{
-			*reg = (*reg) & (~(1 << 7));
+			reg = reg & (~(1 << 7));
 		}
 
 		Registers.SetZeroFlag(false);
 		Registers.SetNegativeFlag(false);
 		Registers.SetHalfCarryFlag(false);
 		Registers.SetCarryFlag(bit);
+
+		return reg;
 	}
 
-	void CPU::RL8bitRegister(uint8_t* reg)
+	uint8_t CPU::RL8bitRegister(uint8_t reg)
 	{
-		bool bit = (*reg) >> 7;
-		*reg = (*reg) << 1;
+		bool bit = reg >> 7;
+		reg = reg << 1;
 
 		if (Registers.GetCarryFlag())
 		{
-			*reg = (*reg) | 1;
+			reg = reg | 1;
 		}
 		else
 		{
-			*reg = (*reg) & (~1);
+			reg = reg & (~1);
 		}
 
 		Registers.SetZeroFlag(false);
 		Registers.SetNegativeFlag(false);
 		Registers.SetHalfCarryFlag(false);
 		Registers.SetCarryFlag(bit);
+
+		return reg;
 	}
 
-	void CPU::RR8bitRegister(uint8_t* reg)
+	uint8_t CPU::RR8bitRegister(uint8_t reg)
 	{
-		bool bit = (*reg) & 1;
-		*reg = (*reg) >> 1;
+		bool bit = reg & 1;
+		reg = reg >> 1;
 
 		if (Registers.GetCarryFlag())
 		{
-			*reg = (*reg) | (1 << 7);
+			reg = reg | (1 << 7);
 		}
 		else
 		{
-			*reg = (*reg) & (~(1 << 7));
+			reg = reg & (~(1 << 7));
 		}
 
 		Registers.SetZeroFlag(false);
 		Registers.SetNegativeFlag(false);
 		Registers.SetHalfCarryFlag(false);
 		Registers.SetCarryFlag(bit);
+
+		return reg;
 	}
 
-	void CPU::SLA8bitRegister(uint8_t* reg)
+	uint8_t CPU::SLA8bitRegister(uint8_t reg)
 	{
-		bool bit = (*reg) >> 7;
-		*reg = (*reg) << 1;
+		bool bit = reg >> 7;
+		reg = reg << 1;
 
-		Registers.SetZeroFlag((*reg) == 0);
+		Registers.SetZeroFlag(reg == 0);
 		Registers.SetNegativeFlag(false);
 		Registers.SetHalfCarryFlag(false);
 		Registers.SetCarryFlag(bit);
+
+		return reg;
 	}
 
-	void CPU::SRA8bitRegister(uint8_t* reg)
+	uint8_t CPU::SRA8bitRegister(uint8_t reg)
 	{
-		bool bit7 = (*reg) >> 7;
-		bool bit = (*reg) & 1;
-		*reg = (*reg) >> 1;
+		bool bit7 = reg >> 7;
+		bool bit = reg & 1;
+		reg = reg >> 1;
 		if (bit7)
 		{
-			*reg = (*reg) | (1 << 7);
+			reg = reg | (1 << 7);
 		}
 
-		Registers.SetZeroFlag((*reg) == 0);
+		Registers.SetZeroFlag(reg == 0);
 		Registers.SetNegativeFlag(false);
 		Registers.SetHalfCarryFlag(false);
 		Registers.SetCarryFlag(bit);
+
+		return reg;
 	}
 
-	void CPU::SWAP8bitRegister(uint8_t* reg)
+	uint8_t CPU::SWAP8bitRegister(uint8_t reg)
 	{
-		uint8_t Upper4bits = (*reg) >> 4;
-		uint8_t Lower4bits = (*reg) & 0x0F;
+		uint8_t Upper4bits = reg >> 4;
+		uint8_t Lower4bits = reg & 0x0F;
 
-		*reg = (Lower4bits << 4) | Upper4bits;
+		reg = (Lower4bits << 4) | Upper4bits;
 
-		Registers.SetZeroFlag((*reg) == 0);
+		Registers.SetZeroFlag(reg == 0);
 		Registers.SetNegativeFlag(false);
 		Registers.SetHalfCarryFlag(false);
 		Registers.SetCarryFlag(false);
+
+		return reg;
 	}
 
-	void CPU::SRL8bitRegister(uint8_t* reg)
+	uint8_t CPU::SRL8bitRegister(uint8_t reg)
 	{
-		bool bit = (*reg) & 1;
-		*reg = (*reg) >> 1;
+		bool bit = reg & 1;
+		reg = reg >> 1;
 
-		Registers.SetZeroFlag((*reg) == 0);
+		Registers.SetZeroFlag(reg == 0);
 		Registers.SetNegativeFlag(false);
 		Registers.SetHalfCarryFlag(false);
 		Registers.SetCarryFlag(bit);
+
+		return reg;
 	}
 
 	// Actual instruction definitions
@@ -140,28 +156,28 @@ namespace GameBoyEmulator {
 	// Non prefixed bit shift instructions instructions
 	int CPU::RRCA()
 	{
-		RRC8bitRegister(&Registers.A);
+		Registers.A = RRC8bitRegister(Registers.A);
 
 		return 1;
 	}
 
 	int CPU::RRA()
 	{
-		RR8bitRegister(&Registers.A);
+		Registers.A = RR8bitRegister(Registers.A);
 
 		return 1;
 	}
 
 	int CPU::RLCA()
 	{
-		RLC8bitRegister(&Registers.A);
+		Registers.A = RLC8bitRegister(Registers.A);
 
 		return 1;
 	}
 
 	int CPU::RLA()
 	{
-		RL8bitRegister(&Registers.A);
+		Registers.A = RL8bitRegister(Registers.A);
 
 		return 1;
 	}
@@ -170,448 +186,448 @@ namespace GameBoyEmulator {
 
 	int CPU::RLC_B()
 	{
-		RLC8bitRegister(&Registers.B);
+		Registers.B = RLC8bitRegister(Registers.B);
 
 		return 2;
 	}
 
 	int CPU::RLC_C()
 	{
-		RLC8bitRegister(&Registers.C);
+		Registers.C = RLC8bitRegister(Registers.C);
 
 		return 2;
 	}
 
 	int CPU::RLC_D()
 	{
-		RLC8bitRegister(&Registers.D);
+		Registers.D = RLC8bitRegister(Registers.D);
 
 		return 2;
 	}
 
 	int CPU::RLC_E()
 	{
-		RLC8bitRegister(&Registers.E);
+		Registers.E = RLC8bitRegister(Registers.E);
 
 		return 2;
 	}
 
 	int CPU::RLC_H()
 	{
-		RLC8bitRegister(&Registers.H);
+		Registers.H = RLC8bitRegister(Registers.H);
 
 		return 2;
 	}
 
 	int CPU::RLC_L()
 	{
-		RLC8bitRegister(&Registers.L);
+		Registers.L = RLC8bitRegister(Registers.L);
 
 		return 2;
 	}
 
 	int CPU::RLC_MHL()
 	{
-		RLC8bitRegister(&Memory[Registers.GetHL()]);
+		Memory.WriteData(RLC8bitRegister(Memory.ReadData(Registers.GetHL())), Registers.GetHL());
 
 		return 2;
 	}
 
 	int CPU::RLC_A()
 	{
-		RLC8bitRegister(&Registers.A);
+		Registers.A = RLC8bitRegister(Registers.A);
 
 		return 2;
 	}
 
 	int CPU::RRC_B()
 	{
-		RRC8bitRegister(&Registers.B);
+		Registers.B = RRC8bitRegister(Registers.B);
 
 		return 2;
 	}
 
 	int CPU::RRC_C()
 	{
-		RRC8bitRegister(&Registers.C);
+		Registers.C = RRC8bitRegister(Registers.C);
 
 		return 2;
 	}
 
 	int CPU::RRC_D()
 	{
-		RRC8bitRegister(&Registers.D);
+		Registers.D = RRC8bitRegister(Registers.D);
 
 		return 2;
 	}
 
 	int CPU::RRC_E()
 	{
-		RRC8bitRegister(&Registers.E);
+		Registers.E = RRC8bitRegister(Registers.E);
 
 		return 2;
 	}
 
 	int CPU::RRC_H()
 	{
-		RRC8bitRegister(&Registers.H);
+		Registers.H = RRC8bitRegister(Registers.H);
 
 		return 2;
 	}
 
 	int CPU::RRC_L()
 	{
-		RRC8bitRegister(&Registers.L);
+		Registers.L = RRC8bitRegister(Registers.L);
 
 		return 2;
 	}
 
 	int CPU::RRC_MHL()
 	{
-		RRC8bitRegister(&Memory[Registers.GetHL()]);
+		Memory.WriteData(RRC8bitRegister(Memory.ReadData(Registers.GetHL())), Registers.GetHL());
 
 		return 2;
 	}
 
 	int CPU::RRC_A()
 	{
-		RRC8bitRegister(&Registers.A);
+		Registers.A = RRC8bitRegister(Registers.A);
 
 		return 2;
 	}
 
 	int CPU::RL_B()
 	{
-		RL8bitRegister(&Registers.B);
+		Registers.B = RL8bitRegister(Registers.B);
 
 		return 2;
 	}
 
 	int CPU::RL_C()
 	{
-		RL8bitRegister(&Registers.C);
+		Registers.C = RL8bitRegister(Registers.C);
 
 		return 2;
 	}
 
 	int CPU::RL_D()
 	{
-		RL8bitRegister(&Registers.D);
+		Registers.D = RL8bitRegister(Registers.D);
 
 		return 2;
 	}
 
 	int CPU::RL_E()
 	{
-		RL8bitRegister(&Registers.E);
+		Registers.E = RL8bitRegister(Registers.E);
 
 		return 2;
 	}
 
 	int CPU::RL_H()
 	{
-		RL8bitRegister(&Registers.H);
+		Registers.H = RL8bitRegister(Registers.H);
 
 		return 2;
 	}
 
 	int CPU::RL_L()
 	{
-		RL8bitRegister(&Registers.L);
+		Registers.L = RL8bitRegister(Registers.L);
 
 		return 2;
 	}
 
 	int CPU::RL_MHL()
 	{
-		RL8bitRegister(&Memory[Registers.GetHL()]);
+		Memory.WriteData(RL8bitRegister(Memory.ReadData(Registers.GetHL())), Registers.GetHL());
 
 		return 2;
 	}
 
 	int CPU::RL_A()
 	{
-		RL8bitRegister(&Registers.A);
+		Registers.A = RL8bitRegister(Registers.A);
 
 		return 2;
 	}
 
 	int CPU::RR_B()
 	{
-		RR8bitRegister(&Registers.B);
+		Registers.B = RR8bitRegister(Registers.B);
 
 		return 2;
 	}
 
 	int CPU::RR_C()
 	{
-		RR8bitRegister(&Registers.C);
+		Registers.C = RR8bitRegister(Registers.C);
 
 		return 2;
 	}
 
 	int CPU::RR_D()
 	{
-		RR8bitRegister(&Registers.D);
+		Registers.D = RR8bitRegister(Registers.D);
 
 		return 2;
 	}
 
 	int CPU::RR_E()
 	{
-		RR8bitRegister(&Registers.E);
+		Registers.E = RR8bitRegister(Registers.E);
 
 		return 2;
 	}
 
 	int CPU::RR_H()
 	{
-		RR8bitRegister(&Registers.H);
+		Registers.H = RR8bitRegister(Registers.H);
 
 		return 2;
 	}
 
 	int CPU::RR_L()
 	{
-		RR8bitRegister(&Registers.L);
+		Registers.L = RR8bitRegister(Registers.L);
 
 		return 2;
 	}
 
 	int CPU::RR_MHL()
 	{
-		RR8bitRegister(&Memory[Registers.GetHL()]);
+		Memory.WriteData(RR8bitRegister(Memory.ReadData(Registers.GetHL())), Registers.GetHL());
 
 		return 2;
 	}
 
 	int CPU::RR_A()
 	{
-		RR8bitRegister(&Registers.A);
+		Registers.A = RR8bitRegister(Registers.A);
 
 		return 2;
 	}
 
 	int CPU::SLA_B()
 	{
-		SLA8bitRegister(&Registers.B);
+		Registers.B = SLA8bitRegister(Registers.B);
 
 		return 2;
 	}
 
 	int CPU::SLA_C()
 	{
-		SLA8bitRegister(&Registers.C);
+		Registers.C = SLA8bitRegister(Registers.C);
 
 		return 2;
 	}
 
 	int CPU::SLA_D()
 	{
-		SLA8bitRegister(&Registers.D);
+		Registers.D = SLA8bitRegister(Registers.D);
 
 		return 2;
 	}
 
 	int CPU::SLA_E()
 	{
-		SLA8bitRegister(&Registers.E);
+		Registers.E = SLA8bitRegister(Registers.E);
 
 		return 2;
 	}
 
 	int CPU::SLA_H()
 	{
-		SLA8bitRegister(&Registers.H);
+		Registers.H = SLA8bitRegister(Registers.H);
 
 		return 2;
 	}
 
 	int CPU::SLA_L()
 	{
-		SLA8bitRegister(&Registers.L);
+		Registers.L = SLA8bitRegister(Registers.L);
 
 		return 2;
 	}
 
 	int CPU::SLA_MHL()
 	{
-		SLA8bitRegister(&Memory[Registers.GetHL()]);
+		Memory.WriteData(SLA8bitRegister(Memory.ReadData(Registers.GetHL())), Registers.GetHL());
 
 		return 2;
 	}
 
 	int CPU::SLA_A()
 	{
-		SLA8bitRegister(&Registers.A);
+		Registers.A = SLA8bitRegister(Registers.A);
 
 		return 2;
 	}
 
 	int CPU::SRA_B()
 	{
-		SRA8bitRegister(&Registers.B);
+		Registers.B = SRA8bitRegister(Registers.B);
 
 		return 2;
 	}
 
 	int CPU::SRA_C()
 	{
-		SRA8bitRegister(&Registers.C);
+		Registers.C = SRA8bitRegister(Registers.C);
 
 		return 2;
 	}
 
 	int CPU::SRA_D()
 	{
-		SRA8bitRegister(&Registers.D);
+		Registers.D = SRA8bitRegister(Registers.D);
 
 		return 2;
 	}
 
 	int CPU::SRA_E()
 	{
-		SRA8bitRegister(&Registers.E);
+		Registers.E = SRA8bitRegister(Registers.E);
 
 		return 2;
 	}
 
 	int CPU::SRA_H()
 	{
-		SRA8bitRegister(&Registers.H);
+		Registers.H = SRA8bitRegister(Registers.H);
 
 		return 2;
 	}
 
 	int CPU::SRA_L()
 	{
-		SRA8bitRegister(&Registers.L);
+		Registers.L = SRA8bitRegister(Registers.L);
 
 		return 2;
 	}
 
 	int CPU::SRA_MHL()
 	{
-		SRA8bitRegister(&Memory[Registers.GetHL()]);
+		Memory.WriteData(SRA8bitRegister(Memory.ReadData(Registers.GetHL())), Registers.GetHL());
 
 		return 2;
 	}
 
 	int CPU::SRA_A()
 	{
-		SRA8bitRegister(&Registers.A);
+		Registers.A = SRA8bitRegister(Registers.A);
 
 		return 2;
 	}
 
 	int CPU::SWAP_B()
 	{
-		SWAP8bitRegister(&Registers.B);
+		Registers.B = SWAP8bitRegister(Registers.B);
 
 		return 2;
 	}
 
 	int CPU::SWAP_C()
 	{
-		SWAP8bitRegister(&Registers.C);
+		Registers.C = SWAP8bitRegister(Registers.C);
 
 		return 2;
 	}
 
 	int CPU::SWAP_D()
 	{
-		SWAP8bitRegister(&Registers.D);
+		Registers.D = SWAP8bitRegister(Registers.D);
 
 		return 2;
 	}
 
 	int CPU::SWAP_E()
 	{
-		SWAP8bitRegister(&Registers.E);
+		Registers.E = SWAP8bitRegister(Registers.E);
 
 		return 2;
 	}
 
 	int CPU::SWAP_H()
 	{
-		SWAP8bitRegister(&Registers.H);
+		Registers.H = SWAP8bitRegister(Registers.H);
 
 		return 2;
 	}
 
 	int CPU::SWAP_L()
 	{
-		SWAP8bitRegister(&Registers.L);
+		Registers.L = SWAP8bitRegister(Registers.L);
 
 		return 2;
 	}
 
 	int CPU::SWAP_MHL()
 	{
-		SWAP8bitRegister(&Memory[Registers.GetHL()]);
+		Memory.WriteData(SWAP8bitRegister(Memory.ReadData(Registers.GetHL())), Registers.GetHL());
 
 		return 2;
 	}
 
 	int CPU::SWAP_A()
 	{
-		SWAP8bitRegister(&Registers.A);
+		Registers.A = SWAP8bitRegister(Registers.A);
 
 		return 2;
 	}
 
 	int CPU::SRL_B()
 	{
-		SRL8bitRegister(&Registers.B);
+		Registers.B = SRL8bitRegister(Registers.B);
 
 		return 2;
 	}
 
 	int CPU::SRL_C()
 	{
-		SRL8bitRegister(&Registers.C);
+		Registers.C = SRL8bitRegister(Registers.C);
 
 		return 2;
 	}
 
 	int CPU::SRL_D()
 	{
-		SRL8bitRegister(&Registers.D);
+		Registers.D = SRL8bitRegister(Registers.D);
 
 		return 2;
 	}
 
 	int CPU::SRL_E()
 	{
-		SRL8bitRegister(&Registers.E);
+		Registers.E = SRL8bitRegister(Registers.E);
 
 		return 2;
 	}
 
 	int CPU::SRL_H()
 	{
-		SRL8bitRegister(&Registers.H);
+		Registers.H = SRL8bitRegister(Registers.H);
 
 		return 2;
 	}
 
 	int CPU::SRL_L()
 	{
-		SRL8bitRegister(&Registers.L);
+		Registers.L = SRL8bitRegister(Registers.L);
 
 		return 2;
 	}
 
 	int CPU::SRL_MHL()
 	{
-		SRL8bitRegister(&Memory[Registers.GetHL()]);
+		Memory.WriteData(SRL8bitRegister(Memory.ReadData(Registers.GetHL())), Registers.GetHL());
 
 		return 2;
 	}
 
 	int CPU::SRL_A()
 	{
-		SRL8bitRegister(&Registers.A);
+		Registers.A = SRL8bitRegister(Registers.A);
 
 		return 2;
 	}

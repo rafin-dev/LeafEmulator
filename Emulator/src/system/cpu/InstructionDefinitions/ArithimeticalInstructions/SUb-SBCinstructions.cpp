@@ -64,7 +64,7 @@ namespace GameBoyEmulator {
 
 	int CPU::SUB_A_MHL()
 	{
-		SubFromA(Memory[Registers.GetHL()]);
+		SubFromA(Memory.ReadData(Registers.GetHL()));
 
 		return 1;
 	}
@@ -81,7 +81,7 @@ namespace GameBoyEmulator {
 
 	int CPU::SUB_A_U8()
 	{
-		SubFromA(Memory[Registers.PC + 1]);
+		SubFromA(Memory.ReadData(Registers.PC + 1));
 
 		return 2;
 	}
@@ -131,7 +131,7 @@ namespace GameBoyEmulator {
 
 	int CPU::SBC_A_MHL()
 	{
-		SubFromA(Memory[Registers.GetHL()] + Registers.GetCarryFlag());
+		SubFromA(Memory.ReadData(Registers.GetHL()) + Registers.GetCarryFlag());
 
 		return 1;
 	}
@@ -145,7 +145,7 @@ namespace GameBoyEmulator {
 
 	int CPU::SBC_A_U8()
 	{
-		SubFromA(Memory[Registers.PC + 1] + Registers.GetCarryFlag());
+		SubFromA(Memory.ReadData(Registers.PC + 1) + Registers.GetCarryFlag());
 
 		return 2;
 	}

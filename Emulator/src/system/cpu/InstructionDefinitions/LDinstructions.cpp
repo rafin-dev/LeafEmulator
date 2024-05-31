@@ -35,8 +35,8 @@ namespace GameBoyEmulator {
 
 	int CPU::LD_MU16_SP()
 	{
-		Memory[GETU16M] = Registers.SP >> 8;
-		Memory[GETU16M] = Registers.SP & 0x00FF;
+		Memory.WriteData(Registers.SP >> 8, GETU16M);
+		Memory.WriteData(Registers.SP & 0x00FF, GETU16M);
 
 		return 3;
 	}
@@ -50,7 +50,8 @@ namespace GameBoyEmulator {
 
 	int CPU::LD_HL_SPpI8()
 	{
-		int R = Registers.SP + *((int8_t*)&Memory[Registers.PC + 1]);
+		uint8_t v = Memory.ReadData(Registers.PC + 1);
+		int R = Registers.SP + *((int8_t*)&v);
 		Registers.SetZeroFlag(false);
 		SetAddInstructionsFlags16bit(R);
 		Registers.SetHL(R);
@@ -62,21 +63,21 @@ namespace GameBoyEmulator {
 
 	int CPU::LD_MBC_A()
 	{
-		Memory[Registers.GetBC()] = Registers.A;
+		Memory.WriteData(Registers.A, Registers.GetBC());
 
 		return 1;
 	}
 
 	int CPU::LD_MDE_A()
 	{
-		Memory[Registers.GetDE()] = Registers.A;
+		Memory.WriteData(Registers.A, Registers.GetDE());
 
 		return 1;
 	}
 
 	int CPU::LD_MHLp_A()
 	{
-		Memory[Registers.GetHL()];
+		Memory.WriteData(Registers.A, Registers.GetHL());
 		Registers.SetHL(Registers.GetHL() + 1);
 
 		return 1;
@@ -84,7 +85,7 @@ namespace GameBoyEmulator {
 
 	int CPU::LD_MHLm_A()
 	{
-		Memory[Registers.GetHL()];
+		Memory.WriteData(Registers.A, Registers.GetHL());
 		Registers.SetHL(Registers.GetHL() - 1);
 
 		return 1;
@@ -92,49 +93,49 @@ namespace GameBoyEmulator {
 
 	int CPU::LD_B_U8()
 	{
-		Registers.B = Memory[Registers.PC + 1];
+		Registers.B = Memory.ReadData(Registers.PC + 1);
 
 		return 2;
 	}
 
 	int CPU::LD_D_U8()
 	{
-		Registers.D = Memory[Registers.PC + 1];
+		Registers.D = Memory.ReadData(Registers.PC + 1);
 
 		return 2;
 	}
 
 	int CPU::LD_H_U8()
 	{
-		Registers.H = Memory[Registers.PC + 1];
+		Registers.H = Memory.ReadData(Registers.PC + 1);
 
 		return 2;
 	}
 
 	int CPU::LD_MHL_U8()
 	{
-		Memory[Registers.GetHL()] = Memory[Registers.PC + 1];
+		Memory.WriteData(Memory.ReadData(Registers.PC + 1), Registers.GetHL());
 
 		return 2;
 	}
 
 	int CPU::LD_A_MBC()
 	{
-		Registers.A = Memory[Registers.GetBC()];
+		Registers.A = Memory.ReadData(Registers.GetBC());
 
 		return 1;
 	}
 
 	int CPU::LD_A_MDE()
 	{
-		Registers.A = Memory[Registers.GetDE()];
+		Registers.A = Memory.ReadData(Registers.GetDE());
 
 		return 1;
 	}
 
 	int CPU::LD_A_MHLp()
 	{
-		Registers.A = Memory[Registers.GetHL()];
+		Registers.A = Memory.ReadData(Registers.GetHL());
 		Registers.SetHL(Registers.GetHL() + 1);
 
 		return 1;
@@ -142,7 +143,7 @@ namespace GameBoyEmulator {
 
 	int CPU::LD_A_MHLm()
 	{
-		Registers.A = Memory[Registers.GetHL()];
+		Registers.A = Memory.ReadData(Registers.GetHL());
 		Registers.SetHL(Registers.GetHL() + 1);
 
 		return 1;
@@ -150,28 +151,28 @@ namespace GameBoyEmulator {
 
 	int CPU::LD_C_U8()
 	{
-		Registers.C = Memory[Registers.PC + 1];
+		Registers.C = Memory.ReadData(Registers.PC + 1);
 
 		return 2;
 	}
 
 	int CPU::LD_E_U8()
 	{
-		Registers.E = Memory[Registers.PC + 1];
+		Registers.E = Memory.ReadData(Registers.PC + 1);
 
 		return 2;
 	}
 
 	int CPU::LD_L_U8()
 	{
-		Registers.L = Memory[Registers.PC + 1];
+		Registers.L = Memory.ReadData(Registers.PC + 1);
 
 		return 2;
 	}
 
 	int CPU::LD_A_U8()
 	{
-		Registers.A = Memory[Registers.PC + 1];
+		Registers.A = Memory.ReadData(Registers.PC + 1);
 
 		return 2;
 	}
@@ -220,7 +221,7 @@ namespace GameBoyEmulator {
 
 	int CPU::LD_B_MHL()
 	{
-		Registers.B = Memory[Registers.GetHL()];
+		Registers.B = Memory.ReadData(Registers.GetHL());
 
 		return 1;
 	}
@@ -276,7 +277,7 @@ namespace GameBoyEmulator {
 
 	int CPU::LD_C_MHL()
 	{
-		Registers.C = Memory[Registers.GetHL()];
+		Registers.C = Memory.ReadData(Registers.GetHL());
 
 		return 1;
 	}
@@ -332,7 +333,7 @@ namespace GameBoyEmulator {
 
 	int CPU::LD_D_MHL()
 	{
-		Registers.D = Memory[Registers.GetHL()];
+		Registers.D = Memory.ReadData(Registers.GetHL());
 
 		return 1;
 	}
@@ -388,7 +389,7 @@ namespace GameBoyEmulator {
 
 	int CPU::LD_E_MHL()
 	{
-		Registers.E = Memory[Registers.GetHL()];
+		Registers.E = Memory.ReadData(Registers.GetHL());
 
 		return 1;
 	}
@@ -444,7 +445,7 @@ namespace GameBoyEmulator {
 
 	int CPU::LD_H_MHL()
 	{
-		Registers.H = Memory[Registers.GetHL()];
+		Registers.H = Memory.ReadData(Registers.GetHL());
 
 		return 1;
 	}
@@ -500,7 +501,7 @@ namespace GameBoyEmulator {
 
 	int CPU::LD_L_MHL()
 	{
-		Registers.L = Memory[Registers.GetHL()];
+		Registers.L = Memory.ReadData(Registers.GetHL());
 
 		return 1;
 	}
@@ -514,49 +515,49 @@ namespace GameBoyEmulator {
 
 	int CPU::LD_MHL_B()
 	{
-		Memory[Registers.GetHL()] = Registers.B;
+		Memory.WriteData(Registers.B, Registers.GetHL());
 
 		return 1;
 	}
 
 	int CPU::LD_MHL_C()
 	{
-		Memory[Registers.GetHL()] = Registers.C;
+		Memory.WriteData(Registers.C, Registers.GetHL());
 
 		return 1;
 	}
 
 	int CPU::LD_MHL_D()
 	{
-		Memory[Registers.GetHL()] = Registers.D;
+		Memory.WriteData(Registers.D, Registers.GetHL());
 
 		return 1;
 	}
 
 	int CPU::LD_MHL_E()
 	{
-		Memory[Registers.GetHL()] = Registers.E;
+		Memory.WriteData(Registers.E, Registers.GetHL());
 
 		return 1;
 	}
 
 	int CPU::LD_MHL_H()
 	{
-		Memory[Registers.GetHL()] = Registers.H;
+		Memory.WriteData(Registers.H, Registers.GetHL());
 
 		return 1;
 	}
 
 	int CPU::LD_MHL_L()
 	{
-		Memory[Registers.GetHL()] = Registers.L;
+		Memory.WriteData(Registers.L, Registers.GetHL());
 
 		return 1;
 	}
 
 	int CPU::LD_MHL_A()
 	{
-		Memory[Registers.GetHL()] = Registers.A;
+		Memory.WriteData(Registers.A, Registers.GetHL());
 
 		return 1;
 	}
@@ -605,7 +606,7 @@ namespace GameBoyEmulator {
 
 	int CPU::LD_A_MHL()
 	{
-		Registers.A = Memory[Registers.GetHL()];
+		Registers.A = Memory.ReadData(Registers.GetHL());
 
 		return 1;
 	}
@@ -619,19 +620,19 @@ namespace GameBoyEmulator {
 
 	int CPU::LD_A_MU16()
 	{
-		Registers.A = Memory[GETU16M];
+		Registers.A = Memory.ReadData(GETU16M);
 
 		return 3;
 	}
 
 	int CPU::LD_MU16_A()
 	{
-		Memory[GETU16M] = Registers.A;
+		Memory.WriteData(Registers.A, GETU16M);
 
 		return 1;
 	}
 
-#define GET0xFFU8 Memory[0xFF00 + Memory[Registers.PC + 1]]
+#define GET0xFFU8 Memory.ReadData(0xFF00 + Memory.ReadData(Registers.PC + 1))
 
 	int CPU::LD_A_0xFFU8()
 	{
@@ -642,21 +643,21 @@ namespace GameBoyEmulator {
 
 	int CPU::LD_0xFFU8_A()
 	{
-		Memory[GET0xFFU8] = Registers.A;
+		Memory.WriteData(Registers.A, GET0xFFU8);
 
 		return 2;
 	}
 
 	int CPU::LD_A_0xFFRC()
 	{
-		Registers.A = Memory[0xFF00 + Registers.C];
+		Registers.A = Memory.ReadData(0xFF00 + Registers.C);
 
 		return 1;
 	}
 
 	int CPU::LD_0xFFRC_A()
 	{
-		Memory[0xFF00 + Registers.C] = Registers.A;
+		Memory.WriteData(Registers.A, 0xFF00 + Registers.C);
 
 		return 1;
 	}

@@ -80,7 +80,8 @@ namespace GameBoyEmulator {
 
 	int CPU::JR_I8()
 	{
-		int relativeAddres = *((int*)(&Memory[Registers.PC + 1]));
+		uint8_t v = Memory.ReadData(Registers.PC + 1);
+		int relativeAddres = *((int*)(&v));
 		Registers.PC += 2;
 		Registers.PC = Registers.PC + relativeAddres;
 
@@ -92,7 +93,8 @@ namespace GameBoyEmulator {
 	{
 		if (Registers.GetZeroFlag())
 		{
-			int relativeAddres = *((int*)(&Memory[Registers.PC + 1]));
+			uint8_t v = Memory.ReadData(Registers.PC + 1);
+			int relativeAddres = *((int*)(&v));
 			Registers.PC += 2;
 			Registers.PC = Registers.PC + relativeAddres;
 
@@ -107,7 +109,8 @@ namespace GameBoyEmulator {
 	{
 		if (Registers.GetCarryFlag())
 		{
-			int relativeAddres = *((int*)(&Memory[Registers.PC + 1]));
+			uint8_t v = Memory.ReadData(Registers.PC + 1);
+			int relativeAddres = *((int*)(&v));
 			Registers.PC += 2;
 			Registers.PC = Registers.PC + relativeAddres;
 
@@ -122,7 +125,8 @@ namespace GameBoyEmulator {
 	{
 		if (!Registers.GetZeroFlag())
 		{
-			int relativeAddres = *((int*)(&Memory[Registers.PC + 1]));
+			uint8_t v = Memory.ReadData(Registers.PC + 1);
+			int relativeAddres = *((int*)(&v));
 			Registers.PC += 2;
 			Registers.PC = Registers.PC + relativeAddres;
 
@@ -137,7 +141,8 @@ namespace GameBoyEmulator {
 	{
 		if (!Registers.GetCarryFlag())
 		{
-			int relativeAddres = *((int*)(&Memory[Registers.PC + 1]));
+			uint8_t v = Memory.ReadData(Registers.PC + 1);
+			int relativeAddres = *((int*)(&v));
 			Registers.PC += 2;
 			Registers.PC = Registers.PC + relativeAddres;
 

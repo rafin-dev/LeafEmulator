@@ -62,7 +62,7 @@ namespace GameBoyEmulator {
 
 	int CPU::AND_A_MHL()
 	{
-		Registers.A = Registers.A & Memory[Registers.GetHL()];
+		Registers.A = Registers.A & Memory.ReadData(Registers.GetHL());
 		SetAndInstructionFlags(Registers.A);
 
 		return 1;
@@ -78,7 +78,7 @@ namespace GameBoyEmulator {
 
 	int CPU::AND_A_U8()
 	{
-		Registers.A = Registers.A & Memory[Registers.PC + 1];
+		Registers.A = Registers.A & Memory.ReadData(Registers.PC + 1);
 		SetAndInstructionFlags(Registers.A);
 
 		return 2;

@@ -56,7 +56,7 @@ namespace GameBoyEmulator {
 
 	int CPU::DEC_MHL()
 	{
-		Memory[Registers.GetHL()]--;
+		Memory.WriteData(Memory.ReadData(Registers.GetHL()) - 1, Registers.GetHL());
 
 		return 1;
 	}
