@@ -2,4 +2,4 @@
 
 ## Simple GameBoy emulator
 
-Made for educational purposes, no special features.
+Made for educational purposes, no extra features.
