@@ -3,6 +3,8 @@
 #define BeginTileMap1 0x9800
 #define BeginTileMap2 0x9C00
 
+#include <string>
+
 namespace GameBoyEmulator {
 
 	class GameBoyMemory;
@@ -12,17 +14,7 @@ namespace GameBoyEmulator {
 		int WindowX;
 		int WindowY;
 
-		uint8_t GetTile(int tile) const
-		{
-			if (!mem->GetGraphicsControl().Window_TileMap_Selected)
-			{
-				return mem->ReadData(BeginTileMap1 + tile);
-			}
-			else
-			{
-				return mem->ReadData(BeginTileMap2 + tile);
-			}
-		}
+		uint8_t GetTile(int tile) const;
 
 	private:
 
