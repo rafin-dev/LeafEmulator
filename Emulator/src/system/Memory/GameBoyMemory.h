@@ -2,11 +2,21 @@
 
 #include <string>
 
-#include "system/Memory/Tile.h"
-#include "system/Memory/LCDC.h"
-#include "system/Memory/OBJ.h"
+#include "Tile.h"
+#include "LCDC.h"
+#include "OBJ.h"
+#include "Scroll.h"
+#include "WindowData.h"
+#include "Background.h"
 
 namespace GameBoyEmulator {
+
+	enum TileType
+	{
+		None = 0,
+		Sprite = 1,
+		Background_Window = 2
+	};
 
 	class GameBoyMemory
 	{
@@ -19,9 +29,12 @@ namespace GameBoyEmulator {
 		uint8_t ReadData(uint16_t addres);
 
 		// Simplified way to read important data from the memory
-		const Tile& GetTile(uint8_t tileIndex);
+		const Tile& GetTile(uint8_t tileIndex, TileType type);
 		const OBJ& GetSprite(uint8_t OBJindex);
 		const LCDC& GetGraphicsControl() { return GraphicsControl; }
+		const Scroll& GetScreenScroll() { return ScreenScroll; }
+		const WindowData& GetWindowPosition() { return Wpos; }
+		const Background& GetBackground() { return BG; }
 
 	private:
 
@@ -29,6 +42,9 @@ namespace GameBoyEmulator {
 		Tile Tiles[384];
 		OBJ Sprites[40];
 		LCDC GraphicsControl;
+		Scroll ScreenScroll;
+		WindowData Wpos;
+		Background BG;
 
 		void WriteVRAMdata(uint8_t data, uint16_t addres);
 		void WriteOAMdata(uint8_t data, uint16_t addres);

@@ -11,22 +11,39 @@ namespace GameBoyEmulator {
 	GameBoyMemory::GameBoyMemory()
 	{
 		memset(Memory, 0, sizeof(Memory));
+		BG.mem = this;
 	}
 
 	void GameBoyMemory::WriteData(uint8_t data, uint16_t addres)
 	{
 		Memory[addres] = data;
 
-		// Checks to see if the addres especified is within the VRAM
+		// Checks if the addres especified is within the VRAM
 		if (VRAM_START >= addres && addres <= VRAM_END)
 		{
 			WriteVRAMdata(data, addres);
 			return;
 		}
+
+		// Checks if the addres is within the OAM
 		if (OAM_START >= addres && addres <= OAM_END)
 		{
 			WriteOAMdata(data, addres);
 			return;
+		}
+
+		// Checks if the addres is within the scroll data
+		if (addres == 0xFF42 || addres == 0xFF43)
+		{
+			ScreenScroll.BottomRight = (Memory[0xFF42] + 143) % 256;
+			ScreenScroll.TopLeft = (Memory[0xFF43] + 159) % 256;
+		}
+
+		// Checks if the addres changes the window position data
+		if (addres == 0xFF4A || addres == 0xFF4B)
+		{
+			Wpos.WindowY = Memory[0xFF4A];
+			Wpos.WindowX = Memory[0xFF4B] - 7;
 		}
 	}
 
@@ -35,9 +52,30 @@ namespace GameBoyEmulator {
 		return Memory[addres];
 	}
 
-	const Tile& GameBoyMemory::GetTile(uint8_t tileIndex)
+	const Tile& GameBoyMemory::GetTile(uint8_t tileIndex, TileType type)
 	{
-		return Tiles[tileIndex];
+		switch (type)
+		{
+		case GameBoyEmulator::None:
+			return Tiles[tileIndex];
+			break;
+
+		case GameBoyEmulator::Sprite:
+			return Tiles[tileIndex];
+			break;
+
+		case GameBoyEmulator::Background_Window:
+			if (!GraphicsControl.TileData_AddresingMode_Selected)
+			{
+				return Tiles[tileIndex];
+			}
+			else
+			{
+				return Tiles[tileIndex + 128];
+			}
+
+			break;
+		}
 	}
 
 	const OBJ& GameBoyMemory::GetSprite(uint8_t OBJindex)

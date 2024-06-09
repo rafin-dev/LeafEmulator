@@ -14,9 +14,12 @@ namespace GameBoyEmulator {
 
 		void Render();
 
+		ScreenColors GetPixel(int x, int y);
+
 	private:
 
 		GameBoyMemory* Memory;
+		ScreenColors Pixels[144][160];
 
 
 	};
