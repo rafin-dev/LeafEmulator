@@ -1,2 +1,5 @@
-# Prototype
-Game Boy emulator made with  c++
+### Leaf Emulator
+
+## Simple GameBoy emulator
+
+Made for educational purposes, no extra features.
