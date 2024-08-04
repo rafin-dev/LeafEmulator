@@ -13,8 +13,8 @@ namespace GameBoyEmulator {
 	sf::Clock deltaClock;
 
 	GameBoy::GameBoy()
-		: Window(sf::VideoMode(1120, 1008), "Prototype", sf::Style::Titlebar | sf::Style::Close),
-		MenuStateMachine(new MenuManager), GBemulator()
+		: Window(sf::VideoMode(800, 720), "Prototype", sf::Style::Titlebar | sf::Style::Close),
+		MenuStateMachine(new MenuManager), GBemulator(&Window)
 	{
 		SYS_LOG_TRACE("Prototype GameBoy emulator. Version: Alpha 0.0.0");
 
@@ -75,11 +75,10 @@ namespace GameBoyEmulator {
 		{
 			PoolEvents();
 
+			Window.clear();
 			//GBemulator.Update();
 
 			UpdateImGui();
-
-			Window.clear();
 			ImGui::SFML::Render(Window);
 			Window.display();
 		}
